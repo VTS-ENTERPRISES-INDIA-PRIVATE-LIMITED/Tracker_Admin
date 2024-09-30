@@ -3,11 +3,11 @@ const router = express.Router();
 const connection = require('../db');
 const createQueries=require('../Queries/Attendence/post.json')
 const getQueries=require('../Queries/Attendence/get.json')
-router.post('/postAttendance',async(req,res)=>{
-    try{
+router.post('/postAttendance', async (req, res) => {
+    try {
         await connection.query(createQueries.CreateTableAttendance);
-        const {Name,EmpId,Shift,Breakfast,Lunch,Dinner,CabinNo,IsPresent} = req.body;
-        const [rows] = await connection.query(getQueries.idquery, [EmployeeID]);
+
+        const { Name, EmpId, Shift, Breakfast, Lunch, Dinner, CabinNo } = req.body;
 
         function getCurrentDateWithoutTime() {
             const date = new Date();
@@ -15,14 +15,14 @@ router.post('/postAttendance',async(req,res)=>{
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
             return `${day}/${month}/${year}`;
-}
-        await connection.query(createQueries.PostAttendance,[Name,EmpId,Shift,Breakfast,Lunch,Dinner,CabinNo,getCurrentDateWithoutTime(),IsPresent]);
-    }
-    catch(error)
-    {
+        }
+
+        // Ensure the query matches the number of values being inserted
+        await connection.query(createQueries.PostAttendance, [Name, EmpId, Shift, Breakfast, Lunch, Dinner, CabinNo, getCurrentDateWithoutTime()]);
+        res.status(200).send({ message: "Attendance updated successfully." });
+    } catch (error) {
         console.error('Error updating attendance status:', error.stack);
         res.status(500).send({ error: "Internal server error." });
-    
     }
 });
 
@@ -56,10 +56,17 @@ router.get('/getPresentEmployeeCount',async (req,res)=>{
     }
 });
 
-router.get('/getAttendanceByDate/:date',async (req,res)=>{
-    const {date}=req.params
+function convertDateToDDMMYYYY(date) {
+    const [year, month, day] = date.split('-');
+    return `${day}/${month}/${year}`;
+}
+
+router.get('/getAttendanceByDate/:date', async (req, res) => {
+    const { date } = req.params;
+    const formattedDate = convertDateToDDMMYYYY(date);
+
     try {
-        const [results] = await connection.query(getQueries.getattendencebyDate,[date]);
+        const [results] = await connection.query(getQueries.getattendencebyDate, [formattedDate]);
         res.json(results);
     } catch (err) {
         console.error('Error retrieving attendance:', err.stack);
