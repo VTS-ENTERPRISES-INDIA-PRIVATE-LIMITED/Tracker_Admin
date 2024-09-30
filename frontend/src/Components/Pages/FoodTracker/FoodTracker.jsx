@@ -1,10 +1,28 @@
 import React, { useState } from "react";
 import "../FoodTracker/FoodTracker.css";
-
+import {message} from 'antd';
+import axios from "axios"
 const FoodTracker = () => {
   const [formData, setFormData] = useState("");
+  const [cabinNo,setCabinNo] = useState('')
   const [selectShift, setSelectShift] = useState("");
+  const [hadBreakfast, setHadBreakfast] = useState(null); 
+  const [willingLunch, setWillingLunch] = useState(null); 
+  const [willingDinner, setWillingDinner] = useState(null);
+  const [submitText,setSubmitText] = useState('Submit')
+  const handleBreakfastChange = (value) => {
+    setHadBreakfast(value);
+  };
 
+  const handleLunchChange = (value) => {
+    setWillingLunch(value);
+  };
+
+  
+
+  const handleDinnerChange = (value) => {
+    setWillingDinner(value);
+  };
   const handleCubicleNo = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -14,16 +32,30 @@ const FoodTracker = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setFormData(formData);
-    console.log(formData);
+    const data = {
+      Name : localStorage.getItem('empname'),
+      EmpId : localStorage.getItem('empid'),
+      Shift : selectShift,
+      Breakfast : hadBreakfast,
+      Lunch : willingLunch,
+      Dinner : willingDinner,
+      CabinNo : cabinNo
+    }
+
+    console.log(data)
+    const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/postAttendance`
+    setSubmitText('Posting...')
+    axios.post(url,data)
+    .then(res=>{
+      message.success("Attendance posted successfully")
+      setSubmitText('Done')
+    })
+    .catch(err=>{
+      message.error("Error posting attendance")
+      setSubmitText("Failed! Try again")
+    })
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
+  
 
   const handleShiftTypeChange = (e) => {
     const selectedShift = e.target.value;
@@ -34,14 +66,6 @@ const FoodTracker = () => {
       breakfast: null,
       lunch: null,
       dinner: null,
-    }));
-  };
-
-  const handleCheckboxChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
     }));
   };
 
@@ -56,7 +80,8 @@ const FoodTracker = () => {
               type="text"
               name="empId"
               placeholder="EmployeeID"
-              onChange={handleChange}
+              readOnly
+              value={localStorage.getItem('empid')}
             />
           </div>
           <div className=" column">
@@ -65,8 +90,9 @@ const FoodTracker = () => {
               type="text"
               name="empName"
               placeholder="Enter Employee Name"
-              onChange={handleChange}
+              value={localStorage.getItem('empname')}
               required
+              readOnly
             />
           </div>
         </div>
@@ -78,7 +104,7 @@ const FoodTracker = () => {
               type="text"
               name="empRole"
               placeholder="Emp Role"
-              onChange={handleChange}
+              value={localStorage.getItem('emprole')}
             />
           </div>
           <div className=" column">
@@ -101,48 +127,72 @@ const FoodTracker = () => {
         <div>
           {selectShift && selectShift === "First" && (
             <div className="checkbox-cont">
-              <div className="checkbox ">
-                <label>Had Breakfast ?</label>
-                <input type="checkbox" onChange={handleCheckboxChange} />
-                Yes
-                <input type="checkbox" onChange={handleCheckboxChange} />
-                No
-              </div>
-              <div className="checkbox">
-                <label>Willing to have Lunch?</label>
-                <input type="checkbox" onChange={handleCheckboxChange} />
-                Yes
-                <input type="checkbox" onChange={handleCheckboxChange} />
-                No
-              </div>
+            <div className="checkbox">
+              <label>Had Breakfast?</label>
+              <input
+                type="checkbox"
+                checked={hadBreakfast === "Yes"}
+                onChange={() => handleBreakfastChange("Yes")}
+              />
+              Yes
+              <input
+                type="checkbox"
+                checked={hadBreakfast === "No"}
+                onChange={() => handleBreakfastChange("No")}
+              />
+              No
             </div>
+      
+            <div className="checkbox">
+              <label>Willing to have Lunch?</label>
+              <input
+                type="checkbox"
+                checked={willingLunch === "Yes"}
+                onChange={() => handleLunchChange("Yes")}
+              />
+              Yes
+              <input
+                type="checkbox"
+                checked={willingLunch === "No"}
+                onChange={() => handleLunchChange("No")}
+              />
+              No
+            </div>
+          </div>
           )}
           {selectShift && selectShift === "Second" && (
-            <div className="checkbox-cont">
-              <div className="checkbox">
-                <label>Willing to have Dinner?</label>
-                Yes
-                <input type="checkbox" onChange={handleCheckboxChange} />
-                No
-                <input type="checkbox" onChange={handleCheckboxChange} />
-              </div>
-            </div>
+            <div className="checkbox">
+            <label>Willing to have Dinner?</label>
+            <input
+              type="checkbox"
+              checked={willingDinner === "Yes"}
+              onChange={() => handleDinnerChange("Yes")}
+            />
+            Yes
+            <input
+              type="checkbox"
+              checked={willingDinner === "No"}
+              onChange={() => handleDinnerChange("No")}
+            />
+            No
+          </div>
           )}
         </div>
         <div className=" row">
           <div className="column">
             <label>Cabin No</label>
-            <select name="cabinNo" onChange={handleCubicleNo}>
+            <select name="cabinNo" onChange={e=>setCabinNo(e.target.value)}>
               <option>Select</option>
-              <option value="HR">HR</option>
-              <option value="1">1 </option>
-              <option value="2">2 </option>
-              <option value="3"> 3</option>
+              <option value="CABIN- 02">CABIN- 02</option>
+              <option value="CABIN- 04">CABIN- 04 </option>
+              <option value="CABIN- 12">CABIN- 12 </option>
+              <option value="CABIN- 25">CABIN- 25 </option>
+              <option value="CABIN- 27">CABIN- 27</option>
             </select>
           </div>
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button disabled={submitText==="Posting..." || submitText==="Done"}  type="submit">{submitText}</button>
         </div>
       </form>
     </div>
