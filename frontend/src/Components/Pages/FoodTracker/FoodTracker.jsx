@@ -31,9 +31,6 @@ const FoodTracker = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       shiftType: { selectShift },
-      breakfast: null,
-      lunch: null,
-      dinner: null,
     }));
   };
 
