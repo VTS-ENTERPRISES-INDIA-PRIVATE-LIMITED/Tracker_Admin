@@ -1,0 +1,46 @@
+.emp-dashboard-container {
+
+    width: 78vw;
+    margin: 2vh 1vw;
+}
+.emp-dashboard-container .wish-container{
+    padding: 1em;
+    width: 95%;
+    margin: 10px auto;
+    border: 1px solid rgba(128, 128, 128, 0.253);
+    border-radius: 7px;
+    height: 15%;
+    text-align: left;
+}
+.emp-dashboard-container .wish-container .time-date{
+    padding: 1em;
+}
+.emp-dashboard-container  .attendance-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.emp-dashboard-container  .attendance-container img{
+    width: 80%;
+    height: auto;
+}
+.emp-dashboard-container   .info-text {
+    text-align: justify;
+    width: 70%;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+.action-container .action-buttons{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+.action-btn{
+    border: none;
+    border-radius: 7px;
+    background-color: #0D6EFD;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}

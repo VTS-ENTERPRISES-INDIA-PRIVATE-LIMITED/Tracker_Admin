@@ -1,99 +1,97 @@
-.sidebar{
-    width: 20vw;
-    background-color: #202020;
-    border: none;
-    border-radius: 20px;
-    height: 96vh;
-    margin: 2vh 1vw;
+.sidebar {
+  width: 20vw;
+  background-color: #202020;
+  border: none;
+  border-radius: 20px;
+  height: 96vh;
+  margin: 2vh 1vw;
 }
 .sidebar hr {
-    width: 60%;
-    border-radius: 80%;
+  width: 60%;
+  border-radius: 80%;
 }
-.sidebar .vts-logo{
-    height: 15%;
+.sidebar .vts-logo {
+  height: 15%;
 }
 .sidebar .sidebar-navlinks {
-    padding: 20px 40px;
-    margin: 0 auto;
-    text-align: left;
-    color: white;
+  padding: 20px 40px;
+  margin: 0 auto;
+  text-align: left;
+  color: white;
 }
 .sidebar .sidebar-navlinks .navlink {
-    gap: 10px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 7px;
+  gap: 10px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 7px;
 }
-.sidebar .sidebar-navlinks .navlink:hover{
-    background-color: #080808;
+.sidebar .sidebar-navlinks .navlink:hover {
+  background-color: #080808;
 }
-.sidebar .sidebar-navlinks .active-navlink{
-    gap: 10px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 7px;
-    background-color: #0D6EFD;
-
+.sidebar .sidebar-navlinks .active-navlink {
+  gap: 10px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 7px;
+  background-color: #0d6efd;
 }
-.sidebar .sidebar-navlinks .logout-navlink{
-    position: fixed;
-    bottom: 1em;
-    width: 14%;  
+.sidebar .sidebar-navlinks .logout-navlink {
+  position: fixed;
+  bottom: 1em;
+  width: 14%;
 }
-.res-sidebar{
+.res-sidebar {
+  display: none;
+}
+@media only screen and (max-width: 480px) {
+  .vts-logo {
     display: none;
-}
-@media only screen and (max-width : 480px) {
-    .vts-logo{
-        display: none;
-    }
-    .sidebar hr{
-        display: none;
-    }
-    .sidebar{
-        margin: 0;
-        border-radius: 0;
-        width: 100vw;
-    }
-    .sidebar .sidebar-navlinks .logout-navlink{
-        position: sticky;
-    }
- .res-sidebar{
-        width: 100vw;
+  }
+  .sidebar hr {
+    display: none;
+  }
+  .sidebar {
+    margin: 0;
+    border-radius: 0;
+    width: 100vw;
+  }
+  .sidebar .sidebar-navlinks .logout-navlink {
+    position: sticky;
+  }
+  .res-sidebar {
+    width: 100vw;
 
-        display: flex;
+    display: flex;
 
-        justify-content: space-between;
-        align-items: center;
-        background-color: white;
-        height: 7vh;
-    }
-    .res-sidebar #menu-bar{
-        padding: 0 1em ;
-    }
-     .res-sidebar h3{
-        padding-right: 1em;
-    }
-    .sidebar {
-        height: 0;
-        overflow: hidden;
-        transition: height 0.3s ease;
-      }
-      
-      .sidebar.open {
-        height: 30vh; 
-      }
-      
-      .sidebar.closed {
-        height: 0; 
-      }
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    height: 7vh;
+  }
+  .res-sidebar #menu-bar {
+    padding: 0 1em;
+  }
+  .res-sidebar h3 {
+    padding-right: 1em;
+  }
+  .sidebar {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
 
+  .sidebar.open {
+    height: 30vh;
+  }
+
+  .sidebar.closed {
+    height: 0;
+  }
 }
