@@ -6,7 +6,7 @@ import Leaves from "./Components/Pages/Leaves/Leaves";
 import { useEffect, useState } from "react";
 import Login from "./Components/Pages/Login/Login";
 import AdminDashboard from "./Components/AdminPages/Dashboard/Dashboard";
-
+import AdminLeaves from "./Components/AdminPages/Leaves/Leaves"
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
@@ -18,8 +18,7 @@ function App() {
   );
   return (
     <div className="App">
-      <AdminDashboard />
-      {/* {isLoggedIn ? (
+      {isLoggedIn ? (
         <div className="main-container">
           <SideBar
             setActivePage={setActivePage}
@@ -29,10 +28,12 @@ function App() {
           {activePage === "1" && <Dashboard setActivePage={setActivePage} />}
           {activePage === "2" && <FoodTracker />}
           {activePage === "3" && <Leaves />}
+          {activePage === "4" && <AdminDashboard />}
+          {activePage === "5" && <AdminLeaves />}
         </div>
       ) : (
         <Login setIsLoggedIn={setIsLoggedIn} />
-      )} */}
+      )}
     </div>
   );
 }

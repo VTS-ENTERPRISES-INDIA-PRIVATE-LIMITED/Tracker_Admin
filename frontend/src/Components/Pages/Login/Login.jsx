@@ -92,6 +92,13 @@ const handleLogin = (e) => {
         localStorage.setItem('empname',res.data.FullName)
         localStorage.setItem('empid',res.data.EmployeeId)
         localStorage.setItem('emprole',res.data.Role)
+        localStorage.setItem('empemail',res.data.EmailAddress)
+
+        localStorage.setItem('access',res.data.access)
+        if(res.data.access === "admin")
+        {
+          localStorage.setItem('activeTab',"4")
+        }
         setTimeout(() => {
           setIsLoggedIn(true)
         }, 1000);
