@@ -23,6 +23,7 @@ const FoodTracker = () => {
   return (
     <div className="emp-foodtracker">
       <form onSubmit={handleSubmit}>
+        <h1>Attendance Form</h1>
         <div className=" row">
           <div className=" column">
             <label> Employee ID</label>
