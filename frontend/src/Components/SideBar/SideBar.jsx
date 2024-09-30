@@ -31,12 +31,12 @@ const SideBar = ({ setActivePage ,setIsLoggedIn}) => {
     <>
       <div className="res-sidebar">
         <FaBars onClick={handleMenuBar} id='menu-bar' />
-        <h3>Welcome Kotesh</h3>
+        <h3>Welcome {localStorage.getItem('empname').toUpperCase()}</h3>
       </div>
 
       <div
         id='sidebar-res'
-        className={`sidebar ${isMenuOpen ? 'open' : 'closed'}`} // Use dynamic class assignment
+        className={`sidebar ${isMenuOpen ? 'open' : 'closed'}`} 
       >
         <div className="vts-logo">Logo</div>
         <hr />

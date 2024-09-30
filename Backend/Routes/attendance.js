@@ -30,7 +30,7 @@ router.post('/loginEmployee', async (req, res) => {
             return res.status(401).send({ error: "Incorrect password." });
         }
        
-        return res.status(200).send({ message: "Login successful.",EmployeeId:rows[0].EmployeeID, FullName:rows[0].FullName ,EmailAddress:rows[0].EmailAddress,Role:rows[0].JobTitle});
+        return res.status(200).send({ message: "Login successful.",EmployeeId:rows[0].EmployeeID, FullName:rows[0].FullName ,EmailAddress:rows[0].EmailAddress,Role:rows[0].JobTitle,access:rows[0].Role});
 
     } catch (error) {
         console.log("Error in login:", error.stack);
