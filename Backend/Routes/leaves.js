@@ -28,7 +28,7 @@ router.post('/postLeaveRequest', async (req, res) => {
     
     
     router.put('/approve-leave', async (req, res) => {
-        const { requestId, name, leaveDates, email } = req.body; 
+        const { requestId, name, StartDate,EndDate,NoOfDays, email } = req.body; 
         if (!requestId || !email) {
             return res.status(400).send({ error: "Request ID and email are required." });
         }
