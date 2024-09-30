@@ -1,4 +1,5 @@
 {
-    "CreateLeavesTables":"Create Table IF NOT EXISTS Leaves (leaveId VARCHAR(255) PRIMARY KEY,Name Varchar(225),EmpId Varchar(225),Subject Varchar(225),Reason Text,StartDate Varchar(225),EndDate Varchar(225),NoOfDays INT,Status Varchar(225) Default 'APPLIED')",
-    "PostLeaves":"INSERT INTO Leaves(leaveId, Name, EmpId,Subject,Reason,StartDate,EndDate,NoOfDays) SELECT CONCAT('lEV', LPAD(COALESCE(MAX(CAST(SUBSTRING(LEAVEId, 7) AS UNSIGNED)) + 1, 1), 5, '0')),?,?,?,?,?,?,? FROM Leaves"
+    "CreateLeavesTables":"Create Table IF NOT EXISTS Leaves (leaveId VARCHAR(255) PRIMARY KEY,Name Varchar(225),EmpId Varchar(225),Subject Varchar(225),Reason Text,StartDate Varchar(225),EndDate Varchar(225),NoOfDays INT,Status Varchar(225) Default 'APPLIED',Email Varchar(225))",
+    "PostLeaves":"INSERT INTO Leaves (leaveId, Name, EmpId, Subject, Reason, StartDate, EndDate, NoOfDays, Email) SELECT CONCAT('lEV', LPAD(COALESCE(MAX(CAST(SUBSTRING(leaveId, 4) AS UNSIGNED)) + 1, 1), 5, '0')),?, ?, ?, ?, ?, ?, ?, ? FROM Leaves;"
+
 }
