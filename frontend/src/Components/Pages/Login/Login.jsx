@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { UserOutlined } from "@ant-design/icons";
-import { Button} from "antd";
+import { Button,message} from "antd";
 import logginimg from './images/image.png'
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import axios from "axios";
 import { Input } from "antd";
 import { useNavigate } from "react-router-dom";
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
   const [accountId, setAccountId] = useState();
   const [password, setPassword] = useState();
   const [showOtpInput, setShowOtpInput] = useState(false);
@@ -78,17 +78,21 @@ const handleLogin = (e) => {
   e.preventDefault();
   if (validateAllFields()) {
     setIsLoading(true)
-    const url = `${process.env.REACT_APP_BACKEND_URL}/emp/login`;
+    const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/loginEmployee`;
     const creds = {
-      empId: accountId,
-      password: password,
+      EmployeeID: accountId,
+      Password: password,
     };
     axios
       .post(url, creds)
       .then((res) => {
-        console.log(res.data.status)
-        localStorage.setItem('lastlogin',getCurrentTime())
-
+        console.log(res.data)
+        localStorage.setItem('token',getCurrentTime())
+        message.success('Login Successful')
+        setTimeout(() => {
+          
+          setIsLoggedIn(true)
+        }, 1000);
         // navigate("/dashboard", { state: res.data.userdata[0] });
       })
       .catch((err) =>{

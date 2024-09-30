@@ -18,12 +18,12 @@ function App() {
   return (
     <div className="App">
       {isLoggedIn?(<div className="main-container">
-        <SideBar setActivePage={setActivePage} activePage={activePage} />
+        <SideBar setActivePage={setActivePage} activePage={activePage}  setIsLoggedIn={setIsLoggedIn}/>
         {activePage === "1" && <Dashboard setActivePage={setActivePage} />}
         {activePage === "2" && <FoodTracker />}
         {activePage === "3" && <Leaves />}
       </div>):(
-        <Login />
+        <Login setIsLoggedIn={setIsLoggedIn} />
       )}
     </div>
   );

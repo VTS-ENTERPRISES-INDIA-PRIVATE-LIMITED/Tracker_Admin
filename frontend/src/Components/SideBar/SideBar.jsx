@@ -4,7 +4,7 @@ import { MdDashboard, MdOutlineEditCalendar } from "react-icons/md";
 import { FaRegCalendarXmark, FaBars } from "react-icons/fa6";
 import { LuLogOut } from "react-icons/lu";
 
-const SideBar = ({ setActivePage }) => {
+const SideBar = ({ setActivePage ,setIsLoggedIn}) => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('activeTab') || '1');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleMenuBar = () => {
@@ -19,7 +19,8 @@ const SideBar = ({ setActivePage }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('activeTab');
+    localStorage.clear()
+    setIsLoggedIn(false)
   };
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const SideBar = ({ setActivePage }) => {
             <FaRegCalendarXmark /> Leaves
           </div>
           <div className='navlink logout-navlink'>
-            <span style={{display:"flex",gap:"10px",alignItems:"center"}}><LuLogOut /> Logout</span>
+            <span onClick={handleLogout} style={{display:"flex",gap:"10px",alignItems:"center"}}><LuLogOut /> Logout</span>
           </div>
         </div>
       </div>
