@@ -3,6 +3,7 @@ const router = express.Router();
 const connection = require('../db');
 const createQueries=require('../Queries/Attendence/post.json')
 const getQueries=require('../Queries/Attendence/get.json')
+const bcrypt = require('bcrypt');
 
 router.post('/loginEmployee', async (req, res) => {
     const { EmployeeID, Password } = req.body;
@@ -29,7 +30,7 @@ router.post('/loginEmployee', async (req, res) => {
             return res.status(401).send({ error: "Incorrect password." });
         }
        
-        return res.status(200).send({ message: "Login successful.",role:rows[0].role, employee });
+        return res.status(200).send({ message: "Login successful.",EmployeeId:rows[0].EmployeeID, FullName:rows[0].FullName });
 
     } catch (error) {
         console.log("Error in login:", error.stack);
