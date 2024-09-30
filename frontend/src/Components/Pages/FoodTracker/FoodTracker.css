@@ -1,17 +1,59 @@
 .emp-foodtracker {
   width: 76vw;
   margin: 2vh 1vw;
+  /* margin: window.innerWidth < 780 ? "20px" : "20px auto", */
+  font-family: Arial, sans-serif;
+  border: 1px solid rgb(149, 145, 145);
+  padding: 20px;
 }
-.row {
+.emp-foodtracker .row {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 15px;
 }
-.column {
+.emp-foodtracker .column {
   flex: 1 1 100px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   min-width: 200px;
+}
+.emp-foodtracker select {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  outline: none;
+  font-size: 16px;
+}
+.emp-foodtracker label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: left;
+}
+.emp-foodtracker input {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  outline: none;
+  font-size: 16px;
+}
+.emp-foodtracker .form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.emp-foodtracker button {
+  background-color: #0d6efd;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+  box-sizing: border-box;
+  font-size: 16px;
 }

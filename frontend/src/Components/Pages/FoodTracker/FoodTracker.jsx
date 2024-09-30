@@ -23,23 +23,24 @@ const FoodTracker = () => {
   return (
     <div className="emp-foodtracker">
       <form onSubmit={handleSubmit}>
-        <div className="emp-foodtracker row">
-          <div className="emp-foodtracker column">
+        <div className=" row">
+          <div className=" column">
             <label> Employee ID</label>
             <input type="text" placeholder="EmployeeID" />
           </div>
-          <div className="emp-foodtracker column">
+          <div className=" column">
             <label> Employee Name</label>
             <input type="text" placeholder="Enter Employee Name" />
           </div>
         </div>
 
-        <div className="emp-foodtracker row">
-          <div className="emp-foodtracker column">
+        <div className=" row">
+          <div className=" column">
             <label> Role</label>
             <input type="text" placeholder="Enter Role" />
           </div>
-          <div className="emp-foodtracker column">
+          <div className=" column">
+            <label>Shift Type</label>
             <select value={shiftValue} onChange={handleShiftValue}>
               <option value="First" onClick={handleShiftCheckBox}>
                 First
@@ -69,13 +70,16 @@ const FoodTracker = () => {
             ""
           )}
         </div>
-        <div>
-          <select value={cubicleNo} onChange={handleCubicleNo}>
-            <option value="HR">HR</option>
-            <option value="1">1 </option>
-            <option value="2">2 </option>
-            <option value="3"> 3</option>
-          </select>
+        <div className=" row">
+          <div className="column">
+            <label>Cubicle No</label>
+            <select value={cubicleNo} onChange={handleCubicleNo}>
+              <option value="HR">HR</option>
+              <option value="1">1 </option>
+              <option value="2">2 </option>
+              <option value="3"> 3</option>
+            </select>
+          </div>
         </div>
         <div>
           <button type="submit">Submit</button>
