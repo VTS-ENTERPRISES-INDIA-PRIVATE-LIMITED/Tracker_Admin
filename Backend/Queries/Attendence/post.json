@@ -1,0 +1,4 @@
+{
+    "CreateTableAttendance":"Create table Attendance (Name Varchar(225),EmpId Varchar(225),Shift Varchar(225),Breakfast Varchar(10),Lunch Varchar(10),Dinner Varchar(10),CabinNo INT,date Varchar(225),IsPresent INT Default 1)",
+    "PostAttendance":"Insert into Attendance values(?,?,?,?,?,?,?,?,?)"
+}

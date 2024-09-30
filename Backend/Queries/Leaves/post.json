@@ -1,0 +1,3 @@
+{
+    "CreateLeavesTables":"Create Table Leaves (Name Varchar(225),EmpId Varchar(225),Subject Varchar(225),Reason Text,StartDate Varchar(225),EndDate Varchar(225),NoOfDays INT,Status Varchar(225))"
+}
