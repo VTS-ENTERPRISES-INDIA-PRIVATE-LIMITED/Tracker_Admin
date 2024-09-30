@@ -89,11 +89,12 @@ const handleLogin = (e) => {
         console.log(res.data)
         localStorage.setItem('token',getCurrentTime())
         message.success('Login Successful')
+        localStorage.setItem('empname',res.data.FullName)
+        localStorage.setItem('empid',res.data.EmployeeId)
+        localStorage.setItem('emprole',res.data.Role)
         setTimeout(() => {
-          
           setIsLoggedIn(true)
         }, 1000);
-        // navigate("/dashboard", { state: res.data.userdata[0] });
       })
       .catch((err) =>{
           console.log(err);

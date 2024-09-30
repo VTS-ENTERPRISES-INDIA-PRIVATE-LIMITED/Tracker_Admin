@@ -7,7 +7,8 @@ const Dashboard = ({ setActivePage }) => {
     <div className="emp-dashboard-container">
       <div className="wish-container">
         <DateTime className="time-date" />
-        <h2 className="wish-message">Welcome Koteshwar Rao,</h2>
+        <h2  className="wish-message">Welcome <span style={{color:'blue'}}s>{localStorage.getItem('empname').toUpperCase()}</span>,</h2>
+        <p style={{boxSizing:'border-box'}}>{localStorage.getItem('empid')}, {localStorage.getItem('emprole')}</p>
       </div>
       <div className="attendance-container">
         <div className="attendance-img">
