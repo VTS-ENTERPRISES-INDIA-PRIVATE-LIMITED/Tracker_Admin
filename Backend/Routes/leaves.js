@@ -37,7 +37,7 @@ router.post('/postLeaveRequest', async (req, res) => {
       padding: 0;
     }
     .container {
-      max-width: 600px;
+      max-width: 700px;
       margin: 40px auto;
       background-color: #f9f9f9;
       border-radius: 10px;
@@ -154,7 +154,7 @@ router.post('/postLeaveRequest', async (req, res) => {
         Reason: ${Reason} <br/>
         Leave Duration: ${NoOfDays} days
       </div>
-      <p>The employee's department has been informed, and the necessary arrangements will be made to cover their responsibilities during the requested leave period. Please review and approve the request at your earliest convenience. Thank you for your consideration.</p>
+      
     <div class="action-links">
       <div class="action-buttons">
         <a href="${approveLink}" target="_blank">APPROVE</a>
@@ -172,7 +172,7 @@ router.post('/postLeaveRequest', async (req, res) => {
         // Send email from the employee's email address
         await transporter.sendMail({
             from: employeeEmail, // Set the sender to the employee's email
-            to: 'dasariamrutha3@gmail.com', // Replace with the admin's email
+            to: 'scetcsear40@gmail.com', // Replace with the admin's email
             subject: 'Leave Request from ' + Name,
             html: emailHtml, // Use the constructed HTML
         });
@@ -222,12 +222,13 @@ router.post('/postLeaveRequest', async (req, res) => {
                   padding: 0;
                 }
                 .container {
-                  max-width: 600px;
+                  max-width: 700px;
                   margin: 40px auto;
                   background-color: #ffffff;
                   border-radius: 10px;
                   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                   padding: 30px;
+                  box-sizing: border-box;
                 }
                 .header {
                   background-image: url('https://res.cloudinary.com/dvmkt80vc/image/upload/v1720537847/WhatsApp_Image_2024-07-09_at_8.34.38_PM_xtzvwx.jpg');
@@ -235,11 +236,12 @@ router.post('/postLeaveRequest', async (req, res) => {
                   background-position: center;
                   color: #ffffff;
                   padding: 25px;
-                  height: 65px;
+                  height: 120px;
                   text-align: right;
                   border-top-left-radius: 10px;
                   border-top-right-radius: 10px;
                   margin: -30px -30px 20px -30px;
+                 box-sizing: border-box;
                 }
                 .header h1 {
                   margin: 0;
@@ -271,9 +273,11 @@ router.post('/postLeaveRequest', async (req, res) => {
                   color: #ffffff;
                   padding: 15px;
                   text-align: center;
+                  height:120px;
                   border-bottom-left-radius: 10px;
                   border-bottom-right-radius: 10px;
                   margin: 20px -30px -20px -30px;
+                  box-sizing: border-box;
                 }
                 .footer p {
                   margin: 0;
@@ -285,6 +289,19 @@ router.post('/postLeaveRequest', async (req, res) => {
                   margin: 20px 0; 
                   color: #333333; 
                 }
+                  @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+      .header {
+        padding: 15px;
+        height: auto;
+      }
+      .action-buttons a {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
               </style>
             </head>
             <body>
@@ -363,12 +380,13 @@ router.post('/postLeaveRequest', async (req, res) => {
                   padding: 0;
                 }
                 .container {
-                  max-width: 600px;
+                  max-width: 700px;
                   margin: 40px auto;
                   background-color: #ffffff;
                   border-radius: 10px;
                   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                   padding: 30px;
+                  box-sizing: border-box;
                 }
                 .header {
                   background-image: url('https://res.cloudinary.com/dvmkt80vc/image/upload/v1720537847/WhatsApp_Image_2024-07-09_at_8.34.38_PM_xtzvwx.jpg');
@@ -376,11 +394,12 @@ router.post('/postLeaveRequest', async (req, res) => {
                   background-position: center;
                   color: #ffffff;
                   padding: 25px;
-                  height: 65px;
+                  height: 120px;
                   text-align: right;
                   border-top-left-radius: 10px;
                   border-top-right-radius: 10px;
                   margin: -30px -30px 20px -30px;
+                  box-sizing: border-box;
                 }
                 .header h1 {
                   margin: 0;
@@ -401,9 +420,11 @@ router.post('/postLeaveRequest', async (req, res) => {
                   color: #ffffff;
                   padding: 15px;
                   text-align: center;
+                  // height:40px;
                   border-bottom-left-radius: 10px;
                   border-bottom-right-radius: 10px;
                   margin: 20px -30px -20px -30px;
+                  box-sizing: border-box;
                 }
                 .footer p {
                   margin: 0;
@@ -415,6 +436,19 @@ router.post('/postLeaveRequest', async (req, res) => {
                   margin: 20px 0; 
                   color: #333333; 
                 }
+                  @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+      .header {
+        padding: 15px;
+        height: auto;
+      }
+      .action-buttons a {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
               </style>
             </head>
             <body>
