@@ -73,16 +73,16 @@ const SideBar = ({ setActivePage, setIsLoggedIn }) => {
                 <MdDashboard /> Dashboard
               </div>
               <div
-                onClick={() => handleNavlinkClick("4")}
+                onClick={() => handleNavlinkClick("5")}
                 className={activeTab === "5" ? "active-navlink" : "navlink"}
               >
                 <MdOutlineEditCalendar /> Leaves
               </div>
             </>
           )}
-          <div className="navlink logout-navlink">
+          <div onClick={handleLogout} className="navlink logout-navlink">
             <span
-              onClick={handleLogout}
+              
               style={{ display: "flex", gap: "10px", alignItems: "center" }}
             >
               <LuLogOut /> Logout

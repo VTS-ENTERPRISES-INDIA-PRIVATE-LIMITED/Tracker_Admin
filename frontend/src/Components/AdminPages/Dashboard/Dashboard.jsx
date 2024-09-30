@@ -23,6 +23,7 @@ const Dashboard = () => {
         </p>
       </div>
       <div className="select-cont">
+        Select Shift : {" "}
         <select value={shiftType} onChange={handleShiftType}>
           <label>select Shift Type</label>
           <option value="">Select</option>
