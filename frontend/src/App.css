@@ -39,3 +39,9 @@
 .App .main-container{
   display: flex;
 }
+
+@media only screen and (max-width : 480px) {
+  .App .main-container{
+    flex-direction: column;
+  }
+}
