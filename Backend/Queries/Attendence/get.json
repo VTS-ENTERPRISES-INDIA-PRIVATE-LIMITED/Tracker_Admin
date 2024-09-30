@@ -1,3 +1,11 @@
 {
-    
+  "getall":"Select * from Attendance",
+  "getByShift":"SELECT Shift, COUNT(*) AS ShiftwiseCount FROM Attendance WHERE GROUP BY Shift",
+  "getByCabin":"SELECT CabinNo, COUNT(*) AS CabinwiseCount FROM Attendance GROUP BY CabinNo;",
+  "getpresenteecount":"SELECT COUNT(*) AS PresentCount FROM Attendance WHERE IsPresent = 1",
+  "getattendencebyDate":"SELECT * from Attendance where date=?",
+  "getbreakfastcount":"SELECT COUNT(*) AS BreakfastCount FROM Attendance WHERE Breakfast='Yes';",
+  "getLunchcount":"SELECT COUNT(*) AS LunchCount FROM Attendance WHERE Lunch='Yes';",
+  "getDinnercount":"SELECT COUNT(*) AS DinnerCount FROM Attendance WHERE Dinner='Yes';"
+
 }
