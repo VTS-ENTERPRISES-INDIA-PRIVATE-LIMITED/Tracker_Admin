@@ -3,14 +3,18 @@ import "./SideBar.css";
 import { MdDashboard } from "react-icons/md";
 import { MdOutlineEditCalendar } from "react-icons/md";
 import { FaRegCalendarXmark } from "react-icons/fa6";
-const SideBar = () => {
+import { LuLogOut } from "react-icons/lu";
+const SideBar = ({setActivePage}) => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('activeTab') || '1');
 
   const handleNavlinkClick = (tab) => {
     setActiveTab(tab);
+    setActivePage(tab)
     localStorage.setItem('activeTab', tab);
   };
-
+  const handleLogout = ()=>{
+    localStorage.removeItem('activeTab');
+  }
   useEffect(() => {
     setActiveTab(localStorage.getItem('activeTab') || '1');
   }, []);
@@ -30,6 +34,9 @@ const SideBar = () => {
         </div>
         <div onClick={() => handleNavlinkClick("3")} className={activeTab === "3" ? 'active-navlink' : 'navlink'}>
         <FaRegCalendarXmark /> Leaves
+        </div>
+        <div onClick={() => handleLogout()} className='navlink logout-navlink'>
+        <LuLogOut /> Logout
         </div>
       </div>
     </div>
