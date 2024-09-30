@@ -3,8 +3,8 @@ import "../FoodTracker/FoodTracker.css";
 
 const FoodTracker = () => {
   const [formData, setFormData] = useState("");
-  const [shiftValue, setShiftvalue] = useState("First");
-  const [selectShift, setSelectShift] = useState();
+  const [shiftValue, setShiftvalue] = useState("");
+  const [selectShift, setSelectShift] = useState("");
   const [checkBoxVisible, setCheckBoxVisible] = useState(false);
   const [cubicleNo, setCubicleNo] = useState("1");
   const handleShiftValue = (e) => {
@@ -41,33 +41,37 @@ const FoodTracker = () => {
           </div>
           <div className=" column">
             <label>Shift Type</label>
-            <select value={shiftValue} onChange={handleShiftValue}>
-              <option value="First" onClick={handleShiftCheckBox}>
-                First
-              </option>
-              <option value="second" onClick={handleShiftCheckBox}>
-                Second
-              </option>
+            <select onChange={e=>setSelectShift(e.target.value)}>
+              <option value="">Select Shift</option>
+              <option value={"First"} key={"First"}>First</option>
+              <option value={"Second"} key={"Second"}>Second</option>
             </select>
           </div>
         </div>
 
         <div>
-          {checkBoxVisible ? (
+          {selectShift && selectShift === "First" && (
             <>
               <div>
                 <label>Had Breakfast ?</label>
-                <input type="checkbox" value="Yes" />
-                <input type="checkbox" value="No" />
+                <input type="checkbox" value="Yes" />Yes
+                <input type="checkbox" value="No" />No
               </div>
               <div>
-                <label>Willing to have Dinner?</label>
-                <input type="checkbox" value="Yes" />
-                <input type="checkbox" value="No" />
+                <label>Willing to have Lunch?</label>
+                <input type="checkbox" value="Yes" />Yes
+                <input type="checkbox" value="No" />No
               </div>
             </>
-          ) : (
-            ""
+          )}
+          {(selectShift && selectShift === "Second" )&& (
+            <>
+              <div>
+                <label>Willing to have Dinner?</label>
+                yes<input type="checkbox" value="Yes" />
+                No<input type="checkbox" value="No" />
+              </div>
+            </>
           )}
         </div>
         <div className=" row">
