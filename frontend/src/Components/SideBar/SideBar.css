@@ -21,7 +21,7 @@
 }
 .sidebar .sidebar-navlinks .navlink {
     gap: 10px;
-    font-size: 1em;
+    font-size: 1.2em;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -34,7 +34,7 @@
 }
 .sidebar .sidebar-navlinks .active-navlink{
     gap: 10px;
-    font-size: 1em;
+    font-size: 1.2em;
     display: flex;
     align-items: center;
     padding: 10px;
@@ -47,4 +47,53 @@
     position: fixed;
     bottom: 1em;
     width: 14%;  
+}
+.res-sidebar{
+    display: none;
+}
+@media only screen and (max-width : 480px) {
+    .vts-logo{
+        display: none;
+    }
+    .sidebar hr{
+        display: none;
+    }
+    .sidebar{
+        margin: 0;
+        border-radius: 0;
+        width: 100vw;
+    }
+    .sidebar .sidebar-navlinks .logout-navlink{
+        position: sticky;
+    }
+ .res-sidebar{
+        width: 100vw;
+
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        height: 7vh;
+    }
+    .res-sidebar #menu-bar{
+        padding: 0 1em ;
+    }
+     .res-sidebar h3{
+        padding-right: 1em;
+    }
+    .sidebar {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease;
+      }
+      
+      .sidebar.open {
+        height: 30vh; 
+      }
+      
+      .sidebar.closed {
+        height: 0; 
+      }
+
 }
