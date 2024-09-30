@@ -36,7 +36,7 @@ const SideBar = ({ setActivePage ,setIsLoggedIn}) => {
 
       <div
         id='sidebar-res'
-        className={`sidebar ${isMenuOpen ? 'open' : 'closed'}`} // Use dynamic class assignment
+        className={`sidebar ${isMenuOpen ? 'open' : 'closed'}`} 
       >
         <div className="vts-logo">Logo</div>
         <hr />
