@@ -21,24 +21,30 @@ router.post('/postLeaveRequest', async (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail', 
         auth: {
-            user: 'your_email@example.com', 
-            pass: 'your_email_password',
+            user:'drajyalakshmi03@gmail.com',
+            pass:'cnqu rhfb crvx gqei'
         },
     });
     
     
-    router.put('/approve-leave', async (req, res) => {
-        const { requestId, name, StartDate,EndDate,NoOfDays, email } = req.body; 
-        if (!requestId || !email) {
-            return res.status(400).send({ error: "Request ID and email are required." });
+    router.put('/approve-leave/:requestId', async (req, res) => {
+        const { requestId } = req.params;
+    
+        if (!requestId) {
+            return res.status(400).send({ error: "Request ID is required." });
         }
+    
         try {
-            const [result] = await connection.query(getQueries.updateStatus, ['Approved', requestId]);
-            if (result.affectedRows === 0) {
+            const [leaveDetails] = await connection.query(getQueries.getDetailsByrequestID, [requestId]);
+            if (!leaveDetails || leaveDetails.length === 0) {
                 return res.status(404).send({ error: "Leave request not found." });
             }
+            const { Name, StartDate, EndDate, NoOfDays} = leaveDetails[0];
+            const [result] = await connection.query(getQueries.updateStatus, ['Approved', requestId]);
     
-            // Construct the email HTML
+            if (result.affectedRows === 0) {
+                return res.status(404).send({ error: "Failed to update the leave request status." });
+            }
             const emailHtml = `
             <!DOCTYPE html>
             <html>
@@ -83,7 +89,7 @@ router.post('/postLeaveRequest', async (req, res) => {
                   font-size: 16px;
                   line-height: 1.6;
                 }
-                  .content h4{
+                  .content h4 {
                   text-align:center;
                   }
                 .content p {
@@ -125,8 +131,7 @@ router.post('/postLeaveRequest', async (req, res) => {
                 <div class="header"></div>
                 <div class="content">
                  <h4>Your Request has been Approved</h4>
-                
-                  <p>Dear ${name},</p>
+                  <p>Dear ${Name},</p>
                   <p>We are pleased to inform you that your leave request has been approved. We appreciate your dedication and commitment to your responsibilities.</p>
                    <div class="highlight-box">
                     <p><strong>Start Date:</strong> ${StartDate}</p>
@@ -152,33 +157,35 @@ router.post('/postLeaveRequest', async (req, res) => {
             </html>
             `;
     
-            // Send the email
+           
             await transporter.sendMail({
-                from: 'your_email@example.com', // Your email address
-                to: email, // The recipient's email address
+                from: 'drajyalakshmi03@gmail.com', 
+                to: 'dasariamrutha3@gmail.com', 
                 subject: 'Leave Request Approved',
-                html: emailHtml, // Use the constructed HTML
+                html: emailHtml, 
             });
     
             res.status(200).send({ message: "Leave request status updated to approved and email sent." });
+    
         } catch (error) {
             console.error('Error updating status or sending email:', error.stack);
             res.status(500).send({ error: "Internal server error." });
         }
     });
     
-    router.put('/RejectRequest', async (req, res) => {
-        const { requestId, name, email } = req.body; // Added name and email parameters
-        if (!requestId || !email || !name) {
-            return res.status(400).send({ error: "Request ID, name, and email are required." });
-        }
+    router.put('/RejectRequest/:requestId', async (req, res) => {
+        const { requestId } = req.params;
         try {
-            const [result] = await connection.query(getQueries.updateStatus, ['Rejected', requestId]);
-            if (result.affectedRows === 0) {
+            const [leaveDetails] = await connection.query(getQueries.getDetailsByrequestID, [requestId]);
+            if (!leaveDetails || leaveDetails.length === 0) {
                 return res.status(404).send({ error: "Leave request not found." });
             }
+            const { Name} = leaveDetails[0];
+            const [result] = await connection.query(getQueries.updateStatus, ['Approved', requestId]);
     
-            // Construct the email HTML
+            if (result.affectedRows === 0) {
+                return res.status(404).send({ error: "Failed to update the leave request status." });
+            }
             const emailHtml = `
             <!DOCTYPE html>
             <html>
@@ -254,7 +261,7 @@ router.post('/postLeaveRequest', async (req, res) => {
                 <div class="header"></div>
                 <div class="content">
                  <h4>Your Request has been Rejected</h4>
-                  <p>Dear ${name},</p>
+                  <p>Dear ${Name},</p>
                   <p>We regret to inform you that your leave request has been rejected. We appreciate your understanding in this matter.</p>
                   <p>If you have any questions or would like to discuss this further, please feel free to reach out to us.</p>
                 </div>
@@ -274,12 +281,12 @@ router.post('/postLeaveRequest', async (req, res) => {
             </html>
             `;
     
-            // Send the email
+           
             await transporter.sendMail({
-                from: 'your_email@example.com', // Your email address
-                to: email, // The recipient's email address
+                from: 'drajyalakshmi03@gmail.com', 
+                to: 'dedeepyagelli@gmail.com',
                 subject: 'Leave Request Rejected',
-                html: emailHtml, // Use the constructed HTML
+                html: emailHtml, 
             });
     
             res.status(200).send({ message: "Leave request status updated to Rejected and email sent." });
