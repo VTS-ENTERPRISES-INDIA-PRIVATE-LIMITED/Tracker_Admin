@@ -5,25 +5,36 @@ const createQueries=require('../Queries/Attendence/post.json')
 const getQueries=require('../Queries/Attendence/get.json')
 
 router.post('/loginEmployee', async (req, res) => {
-    const { EmpID, Password } = req.body;
+    const { EmployeeID, Password } = req.body;
 
-    if (!EmpID || !Password) {
+    if (!EmployeeID || !Password) {
         return res.status(400).send({ error: "All fields are required." });
     }
 
     try {
+
+        // if (EmployeeID === 'admin123' && Password === 'admin123') {
+        //     return res.status(200).send({ message: "Admin login successful.", userType: "admin" });
+        // }
         const [rows] = await connection.query(getQueries.getEmployeeById, [EmployeeID]);
+
         if (rows.length === 0) {
             return res.status(404).send({ error: "Employee not found." });
         }
-        if (Password != rows[0].EmployeeID) {
+
+        const employee = rows[0];
+        const isMatch = await bcrypt.compare(Password, employee.Password);
+
+        if (!isMatch) {
             return res.status(401).send({ error: "Incorrect password." });
         }
-        return res.status(200).send({ message: "Login successful.", employee: rows[0] });
+       
+        return res.status(200).send({ message: "Login successful.",role:rows[0].role, employee });
+
     } catch (error) {
         console.log("Error in login:", error.stack);
-        return res.status(500).send({ error: "Internal server error." });
-    }
+        return res.status(500).send({ error: "Internal server error." });
+    }
 });
 
 router.post('/postAttendance', async (req, res) => {
