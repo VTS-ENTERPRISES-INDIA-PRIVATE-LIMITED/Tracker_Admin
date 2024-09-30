@@ -1,0 +1,45 @@
+.sidebar{
+    width: 20vw;
+    background-color: #202020;
+    border: none;
+    border-radius: 20px;
+    height: 96vh;
+    margin: 2vh 1vw;
+}
+.sidebar hr {
+    width: 60%;
+    border-radius: 80%;
+}
+.sidebar .vts-logo{
+    height: 15%;
+}
+.sidebar .sidebar-navlinks {
+    padding: 20px 40px;
+    margin: 0 auto;
+    text-align: left;
+    color: white;
+}
+.sidebar .sidebar-navlinks .navlink {
+    gap: 10px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 7px;
+}
+.sidebar .sidebar-navlinks .navlink:hover{
+    background-color: #080808;
+}
+.sidebar .sidebar-navlinks .active-navlink{
+    gap: 10px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 7px;
+    background-color: #0D6EFD;
+
+}
