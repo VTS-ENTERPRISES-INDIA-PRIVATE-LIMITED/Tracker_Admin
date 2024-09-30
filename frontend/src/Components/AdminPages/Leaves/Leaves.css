@@ -8,7 +8,7 @@
   border-radius: 11px;
   overflow-y: scroll;
   overflow-x: scroll;
-  padding: 30px;
+  padding: 20px;
   margin: 2rem;
 
   flex-grow: 1;
@@ -55,6 +55,10 @@
 .leavetable-cont td {
   text-align: left;
 }
+.leavetable-cont .leavebuttons{
+    display:flex;
+    align-items: center;
+}
 
 .leavetable-cont .leavebuttons button {
   border: none;
@@ -88,4 +92,15 @@
   border-radius: 7px;
   justify-content: center;
   align-items: center;
+}
+.leavetable-cont .table-optns2 {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.leavetable-cont .table-optns2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

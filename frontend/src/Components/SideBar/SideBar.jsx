@@ -33,7 +33,7 @@ const SideBar = ({ setActivePage, setIsLoggedIn }) => {
     <>
       <div className="res-sidebar">
         <FaBars onClick={handleMenuBar} id="menu-bar" />
-        <h3>Welcome {localStorage.getItem("empname").toUpperCase()}</h3>
+        <h3>Welcome {localStorage.getItem("empname")}</h3>
       </div>
 
       <div
@@ -66,7 +66,7 @@ const SideBar = ({ setActivePage, setIsLoggedIn }) => {
             </>
           ) : (
             <>
-             <div
+              <div
                 onClick={() => handleNavlinkClick("4")}
                 className={activeTab === "4" ? "active-navlink" : "navlink"}
               >
@@ -82,7 +82,6 @@ const SideBar = ({ setActivePage, setIsLoggedIn }) => {
           )}
           <div onClick={handleLogout} className="navlink logout-navlink">
             <span
-              
               style={{ display: "flex", gap: "10px", alignItems: "center" }}
             >
               <LuLogOut /> Logout
