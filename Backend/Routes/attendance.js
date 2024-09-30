@@ -20,7 +20,7 @@ router.post('/postAttendance',async(req,res)=>{
     }
     catch(error)
     {
-        console.error('Error updating attendance status:', err.stack);
+        console.error('Error updating attendance status:', error.stack);
         res.status(500).send({ error: "Internal server error." });
     
     }
