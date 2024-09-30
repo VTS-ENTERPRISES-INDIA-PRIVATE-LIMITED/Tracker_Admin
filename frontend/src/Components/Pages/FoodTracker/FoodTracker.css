@@ -1,0 +1,17 @@
+.emp-foodtracker {
+  width: 76vw;
+  margin: 2vh 1vw;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.column {
+  flex: 1 1 100px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-width: 200px;
+}
