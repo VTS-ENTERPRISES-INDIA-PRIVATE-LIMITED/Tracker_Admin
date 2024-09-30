@@ -136,4 +136,13 @@ router.get('/lunchcount', async (req, res) => {
     }
 });
 
+router.get('/getAllEmployees', async (req, res) => {
+    try {
+        const [rows] = await connection.query(getQueries.getall);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 module.exports=router;
