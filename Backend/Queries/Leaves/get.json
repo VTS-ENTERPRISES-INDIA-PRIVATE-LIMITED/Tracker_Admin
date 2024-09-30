@@ -1,6 +1,7 @@
 {
     "getleaves":"SELECT * FROM Leaves WHERE Status='Applied'",
     "getLeavesByEmployeeId":"SELECT * FROM Leaves WHERE EmpId=?",
-    "updateStatus":"update Leaves set Status=? where leaveId=?"
+    "updateStatus":"update Leaves set Status=? where leaveId=?",
+    "getDetailsByrequestID":"Select * from Leaves where leaveId=?"
     
 }
