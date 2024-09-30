@@ -1,4 +1,4 @@
-.emp-foodtracker {
+.Emp-cont {
   width: 76vw;
   margin: 2vh 1vw;
   /* margin: window.innerWidth < 780 ? "20px" : "20px auto", */
@@ -7,23 +7,23 @@
   padding: 20px;
   margin-bottom: 5px;
 }
-.emp-foodtracker h1 {
+.Emp-cont h1 {
   text-align: left;
 }
-.emp-foodtracker .row {
+.Emp-cont .row {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   margin-bottom: 15px;
 }
-.emp-foodtracker .column {
+.Emp-cont .column {
   flex: 1 1 100px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   min-width: 200px;
 }
-.emp-foodtracker select {
+.Emp-cont select {
   margin: 0;
   padding: 10px;
   border: 1px solid #ccc;
@@ -31,12 +31,27 @@
   outline: none;
   font-size: 16px;
 }
-.emp-foodtracker label {
+.Emp-cont .checkbox-cont {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+.Emp-cont .checkbox-cont .checkbox {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+}
+.Emp-cont .checkbox-cont label {
+  font-weight: 200;
+  font-size: 15px;
+}
+.Emp-cont label {
   font-weight: bold;
   margin-bottom: 5px;
   text-align: left;
 }
-.emp-foodtracker input {
+.Emp-cont input {
   margin: 0;
   padding: 10px;
   border: 1px solid #ccc;
@@ -44,12 +59,21 @@
   outline: none;
   font-size: 16px;
 }
-.emp-foodtracker .form {
+.Emp-cont textarea {
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  outline: none;
+  font-size: 16px;
+}
+.Emp-cont .form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.emp-foodtracker button {
+.Emp-cont button {
   background-color: #0d6efd;
   color: white;
   padding: 10px 20px;

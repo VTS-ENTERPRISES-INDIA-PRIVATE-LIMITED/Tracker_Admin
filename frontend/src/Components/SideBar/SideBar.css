@@ -21,7 +21,7 @@
 }
 .sidebar .sidebar-navlinks .navlink {
     gap: 10px;
-    font-size: 1em;
+    font-size: 1.2em;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -34,7 +34,7 @@
 }
 .sidebar .sidebar-navlinks .active-navlink{
     gap: 10px;
-    font-size: 1em;
+    font-size: 1.2em;
     display: flex;
     align-items: center;
     padding: 10px;
@@ -42,9 +42,4 @@
     border-radius: 7px;
     background-color: #0D6EFD;
 
-}
-.sidebar .sidebar-navlinks .logout-navlink{
-    position: fixed;
-    bottom: 1em;
-    width: 14%;  
 }
