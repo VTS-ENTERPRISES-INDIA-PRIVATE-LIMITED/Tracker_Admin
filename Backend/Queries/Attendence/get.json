@@ -8,5 +8,4 @@
   "getLunchcount":"SELECT COUNT(*) AS LunchCount FROM Attendance WHERE Lunch='Yes';",
   "getDinnercount":"SELECT COUNT(*) AS DinnerCount FROM Attendance WHERE Dinner='Yes';",
   "getEmployeeById": "SELECT * FROM hrms_employees WHERE EmployeeID = ?"
-
 }

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./SideBar.css";
 import { MdDashboard, MdOutlineEditCalendar } from "react-icons/md";
 import { FaRegCalendarXmark, FaBars } from "react-icons/fa6";
+import { HiMiniUserGroup } from "react-icons/hi2";
 import { LuLogOut } from "react-icons/lu";
-
+import logo from "../../assets/Images/logo.png"
 const SideBar = ({ setActivePage, setIsLoggedIn }) => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("activeTab") || "1"
@@ -40,7 +41,14 @@ const SideBar = ({ setActivePage, setIsLoggedIn }) => {
         id="sidebar-res"
         className={`sidebar ${isMenuOpen ? "open" : "closed"}`}
       >
-        <div className="vts-logo">Logo</div>
+        <div className="vts-logo">
+          <div>
+          <img src={logo} alt="logo" /> 
+          </div>
+          <div className="vts-text">
+            VTS
+          </div>
+        </div>
         <hr />
         <div className="sidebar-navlinks">
           {localStorage.getItem("access") === "employee" ? (
@@ -51,6 +59,7 @@ const SideBar = ({ setActivePage, setIsLoggedIn }) => {
               >
                 <MdDashboard /> Dashboard
               </div>
+
               <div
                 onClick={() => handleNavlinkClick("2")}
                 className={activeTab === "2" ? "active-navlink" : "navlink"}
@@ -71,6 +80,12 @@ const SideBar = ({ setActivePage, setIsLoggedIn }) => {
                 className={activeTab === "4" ? "active-navlink" : "navlink"}
               >
                 <MdDashboard /> Dashboard
+              </div>
+              <div
+                onClick={() => handleNavlinkClick("6")}
+                className={activeTab === "6" ? "active-navlink" : "navlink"}
+              >
+                <HiMiniUserGroup /> Employees
               </div>
               <div
                 onClick={() => handleNavlinkClick("5")}

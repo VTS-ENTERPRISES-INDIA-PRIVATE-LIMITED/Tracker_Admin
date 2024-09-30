@@ -8,7 +8,7 @@ import { Spin } from 'antd';
 import axios from "axios";
 import { Input } from "antd";
 import { useNavigate } from "react-router-dom";
-const Login = ({setIsLoggedIn}) => {
+const Login = ({setIsLoggedIn,setActivePage}) => {
   const [accountId, setAccountId] = useState();
   const [password, setPassword] = useState();
   const [showOtpInput, setShowOtpInput] = useState(false);
@@ -92,12 +92,14 @@ const handleLogin = (e) => {
         localStorage.setItem('empname',res.data.FullName)
         localStorage.setItem('empid',res.data.EmployeeId)
         localStorage.setItem('emprole',res.data.Role)
-        localStorage.setItem('empemail',res.data.EmailAddress)
 
         localStorage.setItem('access',res.data.access)
         if(res.data.access === "admin")
         {
-          localStorage.setItem('activeTab',"4")
+          setActivePage('4')
+        }
+        else{
+          setActivePage("1")
         }
         setTimeout(() => {
           setIsLoggedIn(true)

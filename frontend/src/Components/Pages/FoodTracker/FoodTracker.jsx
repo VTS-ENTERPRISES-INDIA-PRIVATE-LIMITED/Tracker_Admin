@@ -71,7 +71,7 @@ const FoodTracker = () => {
       <form onSubmit={handleSubmit}>
         <h1>Attendance Form</h1>
         <div className=" row">
-          <div className=" column">
+          <div className="column">
             <label> Employee ID</label>
             <input
               type="text"
@@ -81,7 +81,7 @@ const FoodTracker = () => {
               value={localStorage.getItem('empid')}
             />
           </div>
-          <div className=" column">
+          <div className="column">
             <label> Employee Name</label>
             <input
               type="text"
@@ -107,21 +107,76 @@ const FoodTracker = () => {
           <div className=" column">
             <label>Shift Type</label>
             <select
-              //   onChange={(e) => setSelectShift(e.target.value)}
               onChange={handleShiftTypeChange}
             >
               <option value="">Select Shift</option>
+              <option value={"Full Time"} key={"Full Time"}>
+                Full Time
+              </option>
               <option value={"First"} key={"First"}>
                 First
               </option>
               <option value={"Second"} key={"Second"}>
                 Second
               </option>
+              <option value={"Work From Home"} key={"Work From Home"}>
+                Work From Home
+              </option>
             </select>
           </div>
         </div>
 
         <div>
+          {selectShift && selectShift === "Full Time" && (
+            <div className="checkbox-cont">
+            <div className="checkbox">
+              <label>Had Breakfast?</label>
+              <input
+                type="checkbox"
+                checked={hadBreakfast === "Yes"}
+                onChange={() => handleBreakfastChange("Yes")}
+              />
+              Yes
+              <input
+                type="checkbox"
+                checked={hadBreakfast === "No"}
+                onChange={() => handleBreakfastChange("No")}
+              />
+              No
+            </div>
+      
+            <div className="checkbox">
+              <label>Willing to have Lunch?</label>
+              <input
+                type="checkbox"
+                checked={willingLunch === "Yes"}
+                onChange={() => handleLunchChange("Yes")}
+              />
+              Yes
+              <input
+                type="checkbox"
+                checked={willingLunch === "No"}
+                onChange={() => handleLunchChange("No")}
+              />
+              No
+            </div>
+            <div className="checkbox">
+            <label>Willing to have Dinner?</label>
+            <input
+              type="checkbox"
+              checked={willingDinner === "Yes"}
+              onChange={() => handleDinnerChange("Yes")}
+            />
+            Yes
+            <input
+              type="checkbox"
+              checked={willingDinner === "No"}
+              onChange={() => handleDinnerChange("No")}
+            />
+            No
+          </div>
+          </div>
+          )}
           {selectShift && selectShift === "First" && (
             <div className="checkbox-cont">
             <div className="checkbox">
