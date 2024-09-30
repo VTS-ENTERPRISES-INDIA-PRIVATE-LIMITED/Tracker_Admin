@@ -16,18 +16,35 @@ router.post('/postLeaveRequest', async (req, res) => {
     }
 });
 
-router.put('/updateLeaveRequest', async (req, res) => {
-    const { requestId,status } = req.body; 
+router.put('/ApproveRequest', async (req, res) => {
+    const { requestId} = req.body; 
     if (!requestId) {
         return res.status(400).send({ error: "Request ID is required." });
     }
     try {
-        const [result] = await connection.query(getQueries.updateStatus, [status, requestId]);
+        const [result] = await connection.query(getQueries.updateStatus, ['Approved', requestId]);
         if (result.affectedRows === 0) {
             return res.status(404).send({ error: "Leave request not found." });
         }
 
         res.status(200).send({ message: "Leave request status updated to approved." });
+    } catch (error) {
+        console.error('Error updating status:', error.stack);
+        res.status(500).send({ error: "Internal server error." });
+    }
+});
+router.put('/RejectRequest', async (req, res) => {
+    const { requestId} = req.body; 
+    if (!requestId) {
+        return res.status(400).send({ error: "Request ID is required." });
+    }
+    try {
+        const [result] = await connection.query(getQueries.updateStatus, ['Rejected', requestId]);
+        if (result.affectedRows === 0) {
+            return res.status(404).send({ error: "Leave request not found." });
+        }
+
+        res.status(200).send({ message: "Leave request status updated to Rejected." });
     } catch (error) {
         console.error('Error updating status:', error.stack);
         res.status(500).send({ error: "Internal server error." });
