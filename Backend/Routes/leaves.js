@@ -19,128 +19,155 @@ router.post('/postLeaveRequest', async (req, res) => {
         const { Name, EmpId, Subject, Reason, StartDate, EndDate, NoOfDays, employeeEmail } = req.body;
         const [result] = await connection.query(createQueries.PostLeaves, [Name, EmpId, Subject, Reason, StartDate, EndDate, NoOfDays,employeeEmail]);
 
-        const leaveId = result.insertId;
-        const approveLink = `http://yourdomain.com/approveLeave/${leaveId}`;
-        const rejectLink = `http://yourdomain.com/rejectLeave/${leaveId}`;
-        const emailHtml = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <title>Leave Request</title>
-              <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-              <style>
-                body {
-                  font-family: 'Inter', Arial, sans-serif;
-                  background-color: #f0f0f5;
-                  margin: 0;
-                  padding: 0;
-                }
-                .container {
-                  max-width: 600px;
-                  margin: 40px auto;
-                  background-color: #ffffff;
-                  border-radius: 10px;
-                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                  padding: 30px;
-                }
-                .header {
-                  background-image: url('https://res.cloudinary.com/dvmkt80vc/image/upload/v1720537847/WhatsApp_Image_2024-07-09_at_8.34.38_PM_xtzvwx.jpg');
-                  background-size: cover;
-                  background-position: center;
-                  color: #ffffff;
-                  padding: 25px;
-                  height: 65px;
-                  text-align: right;
-                  border-top-left-radius: 10px;
-                  border-top-right-radius: 10px;
-                  margin: -30px -30px 20px -30px;
-                }
-                .header h1 {
-                  margin: 0;
-                  font-size: 28px;
-                }
-                .content {
-                  color: #333333;
-                  font-size: 16px;
-                  line-height: 1.6;
-                }
-                .content p {
-                  margin: 15px 0;
-                }
-                .highlight-box {
-                  background-color: #f9f9f9;
-                  padding: 15px;
-                  border-radius: 5px;
-                  margin-top: 10px;
-                  font-weight: 600;
-                  font-size: 18px;
-                  text-align: center;
-                  color: #dc1414b4;
-                }
-                .footer {
-                  background-color: #030940b4;
-                  color: #ffffff;
-                  padding: 15px;
-                  text-align: center;
-                  border-bottom-left-radius: 10px;
-                  border-bottom-right-radius: 10px;
-                  margin: 20px -30px -20px -30px;
-                }
-                .footer p {
-                  margin: 0;
-                  font-size: 14px;
-                }
-                .action-links {
-                  margin-top: 20px;
-                  text-align: center;
-                }
-                .action-links a {
-                  text-decoration: none;
-                  color: #fff;
-                  background-color: #28a745;
-                  padding: 10px 20px;
-                  border-radius: 5px;
-                  margin-right: 10px;
-                }
-                .action-links a.reject {
-                  background-color: #dc3545;
-                }
-              </style>
-            </head>
-            <body>
-              <div class="container">
-                <div class="header">
-                  <!-- Optional Header Content -->
-                </div>
-                <div class="content">
-                  <p>Dear Manager,</p>
-                  <p>I am writing to formally request leave from ${StartDate} to ${EndDate} due to ${Reason}. Below are the details of my request:</p>
+        const leaveId = result.leaveId;
+        const approveLink = `http:/localhost:5000/approve-Leave/${leaveId}`;
+        const rejectLink = `http:/localhost:5000/reject-Leave/${leaveId}`;
+        const emailHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leave Request</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #f0f0f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      box-sizing: border-box;
+    }
+    .header {
+      background-image: url('https://res.cloudinary.com/dvmkt80vc/image/upload/v1720537847/WhatsApp_Image_2024-07-09_at_8.34.38_PM_xtzvwx.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      padding: 25px;
+      height: 120px;
+      text-align: right;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      margin: -30px -30px 20px -30px;
+      box-sizing: border-box;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    .content {
+      color: #333333;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .content p {
+      margin: 15px 0;
+    }
+    .highlight-box {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 18px;
+      text-align: left; 
+      color: black;
+    }
+    .footer {
+      background-color: #080458b4;
+      color: #ffffff;
+      padding: 25px;
+      text-align: center;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      margin: 20px -30px -20px -30px;
+      box-sizing: border-box;
+    }
+    .footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    .action-links {
+      margin-top: 30px; /* Increased margin for better spacing */
+      text-align: center;
+    }
+    .action-buttons {
+      display: inline-block; /* Ensure buttons are side by side */
+    }
+    .content h2{
+                  text-align:center;
+                  }
+    .action-buttons a {
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      background-color: #28a745;
+      padding: 12px 25px; /* Increased padding for better touch targets */
+      border-radius: 5px;
+      margin: 5px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .action-buttons a.reject {
+      background-color: #dc3545;
+    }
+    .action-buttons a:hover {
+      opacity: 0.9;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+      .header {
+        padding: 15px;
+        height: auto;
+      }
+      .action-buttons a {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <!-- Optional Header Content -->
+    </div>
+    <div class="content">
+     <h2>New Leave Request</h2>
+      <p>Dear VP Sir,</p>
+      <p>I am forwarding the leave request submitted by ${Name} from ${StartDate} to ${EndDate} due to ${Reason}. Below are the details of the request:</p>
 
-                  <div class="highlight-box">
-                    Employee Id: ${EmpId}<br/>
-                    Employee Name: ${Name} <br/>
-                    Leave Subject: ${Subject} <br/>
-                    Reason: ${Reason} <br/>
-                    Leave Duration: ${NoOfDays} days
-                  </div>
+      <div class="highlight-box">
+        Employee Id: ${EmpId}<br/>
+        Employee Name: ${Name} <br/>
+        Leave Type: ${Subject} <br/>
+        Reason: ${Reason} <br/>
+        Leave Duration: ${NoOfDays} days
+      </div>
+      <p>The employee's department has been informed, and the necessary arrangements will be made to cover their responsibilities during the requested leave period. Please review and approve the request at your earliest convenience. Thank you for your consideration.</p>
+    <div class="action-links">
+      <div class="action-buttons">
+        <a href="${approveLink}" target="_blank">APPROVE</a>
+        <a href="${rejectLink}" target="_blank" class="reject">REJECT</a>
+      </div>
+    </div>
 
-                  <p>I have taken the necessary steps to ensure my current tasks are covered during my absence. I am available to assist remotely if needed. I appreciate your time and consideration for this request.</p>
-                </div>
-
-                <div class="action-links">
-                  <a href="${approveLink}" target="_blank">APPROVE</a>
-                  <a href="${rejectLink}" target="_blank" class="reject">REJECT</a>
-                </div>
-
-                <div class="footer">
-                  <p>© VTS Enterprises India Private Limited. All rights reserved.</p>
-                </div>
-              </div>
-            </body>
-            </html>
-        `;
+    <div class="footer">
+      <p>© VTS Enterprises India Private Limited. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>  `;
 
         // Send email from the employee's email address
         await transporter.sendMail({
