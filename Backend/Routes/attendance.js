@@ -177,4 +177,14 @@ router.get('/presenteedetails', async (req, res) => {
     }
 });
 
+router.get('/shiftWiseEmployees/:shift', async (req, res) => {
+    const {shift}=req.params;
+    try {
+        const result = await connection.query(getQueries.EmployeeDetailsShiftwise,[shift]);
+        res.json(result[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 module.exports=router;
