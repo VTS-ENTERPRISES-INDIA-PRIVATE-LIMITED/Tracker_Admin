@@ -32,15 +32,18 @@
   font-size: 16px;
 }
 .Emp-cont .checkbox-cont {
+  margin: 2em;
   display: flex;
   gap: 2rem;
   justify-content: space-around;
   align-items: center;
+  align-content: center;
 }
 .Emp-cont .checkbox-cont .checkbox {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 0.3rem;
+  gap: 0.4rem;
 }
 .Emp-cont .checkbox-cont label {
   font-weight: 200;

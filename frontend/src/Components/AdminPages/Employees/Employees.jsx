@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
+import { Empty } from 'antd';
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
 import "./Employees.css";
@@ -170,6 +171,10 @@ const Employees = () => {
       <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
         Search
       </button>
+
+      <label htmlFor="input">
+        Working Days <input placeholder="25 By Default"  onChange={e=>setWorkingDays(e.target.value)} />
+      </label>
       <div className="Emptable">
         <table>
           <thead>
@@ -197,11 +202,16 @@ const Employees = () => {
                       <td>{item.Shift}</td>
                       <td>{item.PresentCount}</td>
 
-                      {/* <td>{item.}</td> */}
+                      <td>{workingDays?(workingDays-item.PresentCount):(25-item.PresentCount)}</td>
                     </tr>
                   ))
                 ) : (
-                  <p>No Data...</p>
+                  <tr >
+                    <td colSpan={5}>
+                    <Empty className="no-data-msg" />
+                    </td>
+                  </tr>
+                  
                 )}
               </>
             )}
