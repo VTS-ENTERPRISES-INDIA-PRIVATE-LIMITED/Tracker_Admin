@@ -1,8 +1,9 @@
 {
   "getall":"Select * from Attendance",
-  "getByShift":"SELECT Shift, COUNT(*) AS ShiftwiseCount FROM Attendance  GROUP BY Shift AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
-  "getByCabin":"SELECT CabinNo, COUNT(*) AS CabinwiseCount FROM Attendance GROUP BY CabinNo AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
-  "getpresenteecount":"SELECT COUNT(*) AS PresentCount FROM Attendance WHERE IsPresent = 1 AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
+  "getByShift":"SELECT Shift, COUNT(*) AS ShiftwiseCount FROM Attendance  GROUP BY Shift AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE() AND IsPresent = 1;",
+  "getByCabin":"SELECT CabinNo, COUNT(*) AS CabinwiseCount FROM Attendance GROUP BY CabinNo AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE() AND IsPresent = 1;",
+  "getpresenteecount":"SELECT COUNT(*) AS PresentCount FROM Attendance WHERE IsPresent = 1 AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE() ;",
+  "getpresentedeatils":"SELECT * FROM Attendance WHERE IsPresent = 1 AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE() ;",
   "getattendencebyDate":"SELECT * from Attendance where date=?",
   "getbreakfastcount":"SELECT COUNT(*) AS BreakfastCount FROM Attendance WHERE Breakfast = 'Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
   "getLunchcount":"SELECT COUNT(*) AS LunchCount FROM Attendance WHERE Lunch='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",

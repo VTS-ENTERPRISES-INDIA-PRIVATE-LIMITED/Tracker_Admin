@@ -168,6 +168,13 @@ router.get('/dinnerdetails', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-
+router.get('/presenteedetails', async (req, res) => {
+    try {
+        const result = await connection.query(getQueries.getpresentedeatils);
+        res.json(result[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 module.exports=router;
