@@ -7,6 +7,9 @@
   "getbreakfastcount":"SELECT COUNT(*) AS BreakfastCount FROM Attendance WHERE Breakfast = 'Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
   "getLunchcount":"SELECT COUNT(*) AS LunchCount FROM Attendance WHERE Lunch='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
   "getDinnercount":"SELECT COUNT(*) AS DinnerCount FROM Attendance WHERE Dinner='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
-  "getEmployeeById": "SELECT * FROM hrms_employees WHERE EmployeeID = ?"
+  "getEmployeeById": "SELECT * FROM hrms_employees WHERE EmployeeID = ?",
+  "EmployesBasedOnBF":"SELECT * FROM Attendance WHERE Breakfast = 'Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
+  "EmployesBasedOnLunch":"SELECT * FROM Attendance WHERE Lunch='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
+  "EmployesBasedOnDinner":"SELECT * FROM Attendance WHERE Dinner='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();"
 
 }
