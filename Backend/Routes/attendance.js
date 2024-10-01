@@ -186,5 +186,14 @@ router.get('/shiftWiseEmployees/:shift', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-
+router.post('getEmployeeAttendanceData',async (req,res)=>{
+    const {startDate,endDate}=req.body;
+    try{
+        const result = await connection.query(getQueries.getAllEmployeeAttendance,[startDate,endDate])
+    res.json(result[0]);
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 module.exports=router;
