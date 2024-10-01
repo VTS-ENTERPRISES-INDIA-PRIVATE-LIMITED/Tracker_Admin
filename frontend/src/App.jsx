@@ -6,7 +6,8 @@ import Leaves from "./Components/Pages/Leaves/Leaves";
 import { useEffect, useState } from "react";
 import Login from "./Components/Pages/Login/Login";
 import AdminDashboard from "./Components/AdminPages/Dashboard/Dashboard";
-import AdminLeaves from "./Components/AdminPages/Leaves/Leaves"
+import AdminLeaves from "./Components/AdminPages/Leaves/Leaves";
+import Employees from "./Components/AdminPages/Employees/Employees";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
           {activePage === "3" && <Leaves />}
           {activePage === "4" && <AdminDashboard />}
           {activePage === "5" && <AdminLeaves />}
+          {activePage === "6" && <Employees />}
         </div>
       ) : (
         <Login setActivePage={setActivePage} setIsLoggedIn={setIsLoggedIn} />

@@ -1,7 +1,7 @@
 .leavetable-cont {
   width: 78vw;
   background-color: white;
-  height: 96vh;
+  height: 94vh;
   overflow-y: scroll;
   box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem,
     rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0;
@@ -16,7 +16,6 @@
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
-  border-radius: 5px;
   border-radius: 15px;
 }
 
@@ -26,9 +25,10 @@
 
 .leavetable-cont th,
 .leavetable-cont td {
-  padding: 18px 20px;
+  
+  padding: 15px 18px;
   text-align: left;
-  font-size: 1rem;
+  font-size: 0.9rem;
   /* border-bottom: 1px solid #ddd; */
   border-bottom: 1px solid rgba(52, 71, 103, 0.103);
 }
@@ -88,7 +88,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 2rem;
+  margin: 10px 0 10px 0;
 }
 .leavetable-cont .dropDrownFilter {
   padding: 5px;

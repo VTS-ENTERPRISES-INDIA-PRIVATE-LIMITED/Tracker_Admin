@@ -6,7 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
 import { BsEyeFill } from "react-icons/bs";
-import { Modal, Text } from "antd";
+import { Modal } from "antd";
 
 const Leaves = () => {
   const [searchQuery, setSearchQuery] = useState("");
