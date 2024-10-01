@@ -12,6 +12,7 @@
   "EmployesBasedOnBF":"SELECT * FROM Attendance WHERE Breakfast = 'Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
   "EmployesBasedOnLunch":"SELECT * FROM Attendance WHERE Lunch='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
   "EmployesBasedOnDinner":"SELECT * FROM Attendance WHERE Dinner='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
-  "getAllEmployeeAttendance" : "SELECT COUNT(IsPresent) AS PresentCount, Name, EmpId, Shift FROM HRMS_New.Attendance WHERE IsPresent = 1 AND STR_TO_DATE(date, '%d/%m/%Y') BETWEEN STR_TO_DATE(?, '%d/%m/%Y') AND STR_TO_DATE(?, '%d/%m/%Y') GROUP BY EmpId, Name, Shift;"
+  "EmployeeDetailsShiftwise":"SELECT * from Attendance Where IsPresent = 1 and Shift=?"
+
 
 }

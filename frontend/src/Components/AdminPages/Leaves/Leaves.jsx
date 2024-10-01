@@ -5,11 +5,14 @@ import { TiTick } from "react-icons/ti";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
+import { BsEyeFill } from "react-icons/bs";
+import { Modal, Text } from "antd";
 
 const Leaves = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [dropDownValue, setDropdownValue] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedEmployee, setSelectedEmployee] = useState();
   const [leaveData, setLeaveData] = useState([]);
   const handlefetchData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/leaves/getleaverequests`;
@@ -21,6 +24,9 @@ const Leaves = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -78,6 +84,7 @@ const Leaves = () => {
 
     XLSX.writeFile(workbook, filename);
   };
+
   useEffect(() => {
     handlefetchData();
   }, []);
@@ -102,7 +109,7 @@ const Leaves = () => {
           >
             <option value="">Search By Status</option>
             <option value="Applied"> Applied</option>
-            <option value="Approve">Approve</option>
+            <option value="Approved">Approve</option>
             <option value="Declined">Declined</option>
           </select>
           <button onClick={exportToExcel}>
@@ -119,39 +126,73 @@ const Leaves = () => {
             <th>Subject</th>
             <th> From Date</th>
             <th> End Date</th>
-            <th>No.of leave days</th>
+            <th>Duration</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
-          {filteredLeavesData.map((item) => (
-            <tr key={item.EmpId}>
-              <td>{item.EmpId}</td>
-              <td>{item.Name}</td>
-              <td>{item.Reason}</td>
-              <td>{item.StartDate}</td>
-              <td>{item.EndDate}</td>
-              <td>{item.NoOfDays}</td>
-              <td>{item.Status}</td>
-              <td>
-                {item.Status === "APPLIED" ? (
-                  <div className="leavebuttons">
-                    <button className="right">
-                      <TiTick size={20} />
-                    </button>
-                    <button className="cross">
-                      <RxCross2 size={20} />
-                    </button>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </td>
-            </tr>
-          ))}
+          {isLoading ? (
+            <div>
+              <p>loading....</p>
+            </div>
+          ) : (
+            <>
+              {filteredLeavesData.length > 0 ? (
+                filteredLeavesData.map((item) => (
+                  <tr key={item.EmpId}>
+                    <td>{item.EmpId}</td>
+                    <td>{item.Name}</td>
+                    <td>{item.Reason}</td>
+                    <td>{item.StartDate}</td>
+                    <td>{item.EndDate}</td>
+                    <td>{item.NoOfDays}</td>
+                    <td>{item.Status}</td>
+                    <td>
+                      {item.Status === "APPLIED" ? (
+                        <div className="leavebuttons">
+                          <button
+                            className="eye"
+                            onClick={() => setSelectedEmployee(item)}
+                          >
+                            <BsEyeFill size={20} />
+                          </button>
+                          <button className="right">
+                            <TiTick size={20} />
+                          </button>
+                          <button className="cross">
+                            <RxCross2 size={20} />
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <p>No Data...</p>
+              )}
+            </>
+          )}
         </tbody>
+        <Modal
+          title="Emp-Details"
+          visible={selectedEmployee}
+          onCancel={() => setSelectedEmployee(null)}
+          footer={null}
+        >
+          <div className="Emp-details">
+            <p> Employee ID : {selectedEmployee?.EmpId}</p>
+            <p> Employee Name :{selectedEmployee?.Name}</p>
+            <p>Reason For Leave:{selectedEmployee?.Reason}</p>
+            <p> From Date:{selectedEmployee?.StartDate}</p>
+            <p>End Date:{selectedEmployee?.EndDate}</p>
+            <p>Total No .of days:{selectedEmployee?.NoOfDays}</p>
+            <p>Status:{selectedEmployee?.Status}</p>
+          </div>
+        </Modal>
       </table>
     </div>
   );

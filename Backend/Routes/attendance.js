@@ -176,6 +176,16 @@ router.get('/presenteedetails', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+router.get('/shiftWiseEmployees/:shift', async (req, res) => {
+    const {shift}=req.params;
+    try {
+        const result = await connection.query(getQueries.EmployeeDetailsShiftwise,[shift]);
+        res.json(result[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 router.post('getEmployeeAttendanceData',async (req,res)=>{
     const {startDate,endDate}=req.body;
     try{
