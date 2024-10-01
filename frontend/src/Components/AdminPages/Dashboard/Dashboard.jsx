@@ -14,7 +14,7 @@ const Dashboard = () => {
         <h2 className="wish-message">
           Welcome{" "}
           <span style={{ color: "blue" }} s>
-            {localStorage.getItem("empname")}
+            {localStorage.getItem("empname").toUpperCase()}
           </span>
           ,
         </h2>
