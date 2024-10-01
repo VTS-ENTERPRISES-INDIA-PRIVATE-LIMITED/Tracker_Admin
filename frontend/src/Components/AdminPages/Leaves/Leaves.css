@@ -94,7 +94,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 10px 0 10px 0;
+  margin: 20px 0 40px 0;
+  
 }
 .leavetable-cont .table-optns2 {
   display: flex;

@@ -208,9 +208,11 @@ const Dashboard = () => {
                   </tr>
                 ))
               ) : (
-                <div className="selectShiftType">
-                  <p>Select Shift Type...</p>
-                </div>
+                <tr>
+                  <td style={{ textAlign: "center" }} colSpan={4}>
+                    Select Shift Type...
+                  </td>
+                </tr>
               )}
             </>
           </tbody>
