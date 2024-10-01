@@ -51,6 +51,10 @@
 .leavetable-cont td {
   text-align: left;
 }
+.leavetable-cont .leavebuttons{
+    display:flex;
+    align-items: center;
+}
 
 .leavetable-cont .leavebuttons button {
   border: none;
@@ -84,4 +88,15 @@
   border-radius: 7px;
   justify-content: center;
   align-items: center;
+}
+.leavetable-cont .table-optns2 {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.leavetable-cont .table-optns2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

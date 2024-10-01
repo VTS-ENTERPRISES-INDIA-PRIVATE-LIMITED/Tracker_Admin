@@ -14,7 +14,7 @@ const Dashboard = () => {
         <h2 className="wish-message">
           Welcome{" "}
           <span style={{ color: "blue" }} s>
-            {localStorage.getItem("empname").toUpperCase()}
+            {localStorage.getItem("empname")}
           </span>
           ,
         </h2>
@@ -23,7 +23,7 @@ const Dashboard = () => {
         </p>
       </div>
       <div className="select-cont">
-        Select Shift : {" "}
+        Select Shift :{" "}
         <select value={shiftType} onChange={handleShiftType}>
           <label>select Shift Type</label>
           <option value="">Select</option>
