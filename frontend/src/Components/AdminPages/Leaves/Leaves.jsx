@@ -31,9 +31,8 @@ const Leaves = () => {
   };
 
   const filteredLeavesData = leaveData.filter((item) => {
-    const searchFilter = item.Name.toUpperCase().includes(
-      searchQuery.toUpperCase()
-    );
+    const searchFilter = item.Name.toUpperCase().includes(searchQuery.toUpperCase()) 
+    || item.EmpId.toUpperCase().includes(searchQuery.toUpperCase())
 
     const dropDownFilter = dropDownValue
       ? item.Status.toUpperCase() === dropDownValue.toUpperCase()
@@ -41,6 +40,8 @@ const Leaves = () => {
 
     return searchFilter && dropDownFilter;
   });
+
+  console.log(filteredLeavesData);
   const exportToExcel = () => {
     const dataToExport =
       searchQuery || dropDownValue ? filteredLeavesData : leaveData;
@@ -140,8 +141,8 @@ const Leaves = () => {
           ) : (
             <>
               {filteredLeavesData.length > 0 ? (
-                filteredLeavesData.map((item) => (
-                  <tr key={item.EmpId}>
+                filteredLeavesData.map((item, index) => (
+                  <tr key={index}>
                     <td>{item.EmpId}</td>
                     <td>{item.Name}</td>
                     <td>{item.Reason}</td>
