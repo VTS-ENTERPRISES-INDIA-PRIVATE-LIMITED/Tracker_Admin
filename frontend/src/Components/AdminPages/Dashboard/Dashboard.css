@@ -75,10 +75,15 @@
   height: 600px;
   overflow-y: scroll;
 }
+
 .AdminDash-cont table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 15px;
+}
+.AdminDash-cont .Dashtable .selectShiftType {
+  display: flex;
+  justify-content: center;
 }
 
 .AdminDash-cont thead {
@@ -91,7 +96,7 @@
   text-align: left;
   font-size: 0.9rem;
   /* border-bottom: 1px solid #ddd; */
-  border-bottom: 1px solid rgba(52, 71, 103, 0.103);
+  border-bottom: 0.5px solid rgba(52, 71, 103, 0.103);
 }
 
 .AdminDash-cont th {

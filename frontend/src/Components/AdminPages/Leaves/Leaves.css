@@ -2,23 +2,26 @@
   width: 78vw;
   background-color: white;
   height: 94vh;
-  overflow-y: scroll;
   box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem,
     rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0;
+  overflow-y: hidden;
   border-radius: 11px;
-  overflow-y: scroll;
-  overflow-x: scroll;
+
   margin: 2vh 1vw;
   flex-grow: 1;
 }
 
 .leavetable-cont table {
-  width: 100%;
   border-collapse: collapse;
+
+  width: 100%;
   overflow: hidden;
-  border-radius: 15px;
 }
 
+.leavetable-cont .leavestable {
+  height: 700px;
+  overflow-y: scroll;
+}
 .leavetable-cont thead {
   background-color: rgb(218, 213, 213);
 }
@@ -29,7 +32,7 @@
   text-align: left;
   font-size: 0.9rem;
   /* border-bottom: 1px solid #ddd; */
-  border-bottom: 1px solid rgba(52, 71, 103, 0.103);
+  border-bottom: 0.5px solid rgba(52, 71, 103, 0.103);
 }
 
 .leavetable-cont th {
@@ -43,9 +46,7 @@
   transition: background-color 0.3s ease;
 }
 
-.leavetable-cont tbody tr:hover {
-  background-color: #d4d0d0;
-}
+
 
 .leavetable-cont td {
   text-align: left;
@@ -83,17 +84,17 @@
   width: 300px;
   align-items: center;
 }
-.leavetable-cont .table-optns {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 10px 0 10px 0;
-}
 .leavetable-cont .dropDrownFilter {
   padding: 5px;
   border-radius: 7px;
   justify-content: center;
   align-items: center;
+}
+.leavetable-cont .table-optns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0 10px 0;
 }
 .leavetable-cont .table-optns2 {
   display: flex;

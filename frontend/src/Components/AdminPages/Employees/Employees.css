@@ -12,10 +12,10 @@
 
 .Emptable-cont table {
   width: 100%;
+  border-collapse: collapse;
 }
 .Emptable-cont .Emptable {
-  height: 600px;
-  border-collapse: collapse;
+  height: 500px;
   overflow-y: scroll;
 }
 
@@ -29,7 +29,7 @@
   text-align: left;
   font-size: 0.9rem;
   /* border-bottom: 1px solid #ddd; */
-  border-bottom: 1px solid rgba(52, 71, 103, 0.103);
+  border-bottom: 0.5px solid rgba(52, 71, 103, 0.103);
 }
 
 .Emptable-cont th {
@@ -41,10 +41,6 @@
 .Emptable-cont tbody tr {
   /* background-color: #eaf7ff; */
   transition: background-color 0.3s ease;
-}
-
-.Emptable-cont tbody tr:hover {
-  background-color: #d4d0d0;
 }
 
 .Emptable-cont td {
@@ -83,32 +79,74 @@
   width: 300px;
   align-items: center;
 }
-.Emptable-cont .table-optns {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 10px 0 10px 0;
-}
+
 .Emptable-cont .dropDrownFilter {
   padding: 5px;
   border-radius: 7px;
   justify-content: center;
   align-items: center;
 }
-.Emptable-cont .table-optns2 {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .Emptable-cont .table-optns2 button {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.no-data-msg{
+.no-data-msg {
   width: 100%;
   margin-top: 4em;
   text-align: center;
   /* margin: 5em auto; */
+}
+.Emptable-cont .table-optns0 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.Emptable-cont .table-optns1 {
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  align-items: center;
+}
+.Emptable-cont .table-optns0 .table-optns1 label {
+  font-weight: 500;
+  font-size: 16px;
+}
+.Emptable-cont .table-optns0 .table-optns1 select {
+  margin: 0;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  outline: none;
+  font-size: 15px;
+}
+.Emptable-cont .table-optns0 .table-optns1 button {
+  background-color: #0d6efd;
+  color: white;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+.Emptable-cont .table-optns2 {
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.Emptable-cont .table-optns2 input {
+  margin: 0;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  outline: none;
+  font-size: 14px;
 }

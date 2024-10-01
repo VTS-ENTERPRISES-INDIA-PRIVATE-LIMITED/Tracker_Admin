@@ -217,7 +217,11 @@ const Leaves = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedEmployee, setSelectedEmployee] = useState();
   const [leaveData, setLeaveData] = useState([]);
-  const [confirmAction, setConfirmAction] = useState({ visible: false, type: '', item: null });
+  const [confirmAction, setConfirmAction] = useState({
+    visible: false,
+    type: "",
+    item: null,
+  });
 
   const handlefetchData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/leaves/getleaverequests`;
@@ -293,13 +297,13 @@ const Leaves = () => {
   const handleApprove = (item) => {
     // Process approval
     console.log("Approved:", item);
-    setConfirmAction({ visible: false, type: '', item: null });
+    setConfirmAction({ visible: false, type: "", item: null });
   };
 
   const handleDecline = (item) => {
     // Process decline
     console.log("Declined:", item);
-    setConfirmAction({ visible: false, type: '', item: null });
+    setConfirmAction({ visible: false, type: "", item: null });
   };
 
   const showConfirm = (type, item) => {
@@ -320,7 +324,7 @@ const Leaves = () => {
   };
 
   const handleCancel = () => {
-    setConfirmAction({ visible: false, type: '', item: null });
+    setConfirmAction({ visible: false, type: "", item: null });
   };
 
   useEffect(() => {
@@ -355,73 +359,74 @@ const Leaves = () => {
           </button>
         </div>
       </div>
+      <div className="leavestable">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee Id</th>
+              <th>Employee Name</th>
+              <th>Subject</th>
+              <th>From Date</th>
+              <th>End Date</th>
+              <th>Duration</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Employee Id</th>
-            <th>Employee Name</th>
-            <th>Subject</th>
-            <th>From Date</th>
-            <th>End Date</th>
-            <th>Duration</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {isLoading ? (
-            <div>
-              <p>Loading....</p>
-            </div>
-          ) : (
-            <>
-              {filteredLeavesData.length > 0 ? (
-                filteredLeavesData.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.EmpId}</td>
-                    <td>{item.Name}</td>
-                    <td>{item.Reason}</td>
-                    <td>{item.StartDate}</td>
-                    <td>{item.EndDate}</td>
-                    <td>{item.NoOfDays}</td>
-                    <td>{item.Status}</td>
-                    <td>
-                      {item.Status === "APPLIED" ? (
-                        <div className="leavebuttons">
-                          <button
-                            className="eye"
-                            onClick={() => setSelectedEmployee(item)}
-                          >
-                            <BsEyeFill size={20} />
-                          </button>
-                          <button
-                            className="right"
-                            onClick={() => showConfirm("approve", item)}
-                          >
-                            <TiTick size={20} />
-                          </button>
-                          <button
-                            className="cross"
-                            onClick={() => showConfirm("decline", item)}
-                          >
-                            <RxCross2 size={20} />
-                          </button>
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <p>No Data...</p>
-              )}
-            </>
-          )}
-        </tbody>
-      </table>
+          <tbody>
+            {isLoading ? (
+              <div>
+                <p>Loading....</p>
+              </div>
+            ) : (
+              <>
+                {filteredLeavesData.length > 0 ? (
+                  filteredLeavesData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.EmpId}</td>
+                      <td>{item.Name}</td>
+                      <td>{item.Reason}</td>
+                      <td>{item.StartDate}</td>
+                      <td>{item.EndDate}</td>
+                      <td>{item.NoOfDays}</td>
+                      <td>{item.Status}</td>
+                      <td>
+                        {item.Status === "APPLIED" ? (
+                          <div className="leavebuttons">
+                            <button
+                              className="eye"
+                              onClick={() => setSelectedEmployee(item)}
+                            >
+                              <BsEyeFill size={20} />
+                            </button>
+                            <button
+                              className="right"
+                              onClick={() => showConfirm("approve", item)}
+                            >
+                              <TiTick size={20} />
+                            </button>
+                            <button
+                              className="cross"
+                              onClick={() => showConfirm("decline", item)}
+                            >
+                              <RxCross2 size={20} />
+                            </button>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <p>No Data...</p>
+                )}
+              </>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       <Modal
         title={`Are you sure you want to ${confirmAction.type}?`}

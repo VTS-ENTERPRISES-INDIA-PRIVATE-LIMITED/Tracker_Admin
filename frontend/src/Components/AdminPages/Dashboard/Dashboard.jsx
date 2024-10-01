@@ -7,7 +7,6 @@ import { IoMdDownload } from "react-icons/io";
 
 const Dashboard = () => {
   const [shiftType, setShiftType] = useState("");
-  const [selectShift, setSelectType] = useState(true);
   const [breakfastCount, setBreakfastCount] = useState();
   const [lunchCount, setLunchCount] = useState();
   const [dinnerCount, setDinnerCount] = useState();
@@ -54,9 +53,6 @@ const Dashboard = () => {
       .catch((err) => {
         setPresentCount(0);
         console.log(err);
-      })
-      .finally(() => {
-        setSelectType(false);
       });
   };
   const exportToExcel = () => {
@@ -201,26 +197,22 @@ const Dashboard = () => {
           </thead>
 
           <tbody>
-            {selectShift ? (
-              <div>
-                <p>Select Shift Type</p>
-              </div>
-            ) : (
-              <>
-                {presentEmpData.length > 0 ? (
-                  presentEmpData.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.EmpId}</td>
-                      <td>{item.Name}</td>
-                      <td>{item.Shift}</td>
-                      <td>{item.CabinNo}</td>
-                    </tr>
-                  ))
-                ) : (
+            <>
+              {presentEmpData.length > 0 ? (
+                presentEmpData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.EmpId}</td>
+                    <td>{item.Name}</td>
+                    <td>{item.Shift}</td>
+                    <td>{item.CabinNo}</td>
+                  </tr>
+                ))
+              ) : (
+                <div className="selectShiftType">
                   <p>Select Shift Type...</p>
-                )}
-              </>
-            )}
+                </div>
+              )}
+            </>
           </tbody>
         </table>
       </div>
