@@ -1,11 +1,18 @@
 .AdminDash-cont {
   width: 76vw;
   margin: 2vh 1vw;
+  background-color: white;
+  height: 94vh;
+  box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem,
+    rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0;
+  border-radius: 11px;
+  overflow-y: hidden;
+  margin: 2vh 1vw;
+  flex-grow: 1;
 }
 .AdminDash-cont .select-cont {
-  text-align: left;
-
-  margin-bottom: 10px;
+  /* text-align: left; */
+  margin: 1em auto;
 }
 .AdminDash-cont select {
   margin: 0;
@@ -35,14 +42,75 @@
 .AdminDash-cont .Cards-cont {
   display: flex;
   gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  margin: 1em auto;
 }
 .AdminDash-cont .Cards-cont .cont {
+  box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem,
+    rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100px;
   width: 200px;
-  background-color: #ccc;
+  background-color: white;
   border-radius: 7px;
+}
+.AdminDash-cont .Cards-cont .cont p {
+  box-sizing: border-box;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.AdminDash-cont .table {
+  margin-top: 2rem;
+  height: 600px;
+  overflow-y: scroll;
+}
+.AdminDash-cont table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 15px;
+}
+
+.AdminDash-cont thead {
+  background-color: white;
+}
+
+.AdminDash-cont th,
+.AdminDash-cont td {
+  padding: 15px 18px;
+  text-align: left;
+  font-size: 0.9rem;
+  /* border-bottom: 1px solid #ddd; */
+  border-bottom: 1px solid rgba(52, 71, 103, 0.103);
+}
+
+.AdminDash-cont th {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.AdminDash-cont tbody tr {
+  /* background-color: #eaf7ff; */
+  transition: background-color 0.3s ease;
+}
+
+.AdminDash-cont tbody tr:hover {
+  background-color: #d4d0d0;
+}
+
+.AdminDash-cont td {
+  text-align: left;
+}
+
+.AdminDash-cont .table-optns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0 10px 0;
 }
