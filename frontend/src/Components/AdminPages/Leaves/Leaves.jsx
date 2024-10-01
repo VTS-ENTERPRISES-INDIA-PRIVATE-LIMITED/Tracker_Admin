@@ -354,7 +354,7 @@ const Leaves = () => {
             <option value="Approved">Approved</option>
             <option value="Declined">Declined</option>
           </select>
-          <button onClick={exportToExcel}>
+          <button onClick={exportToExcel} className="downloadBtn">
             <IoMdDownload size={20} /> Download Report
           </button>
         </div>

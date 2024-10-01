@@ -130,7 +130,7 @@ const Dashboard = () => {
           </select>
         </div>
         <div className="table-optns2">
-          <button onClick={exportToExcel}>
+          <button onClick={exportToExcel} className="downloadBtn">
             <IoMdDownload size={20} /> Download Report
           </button>
         </div>

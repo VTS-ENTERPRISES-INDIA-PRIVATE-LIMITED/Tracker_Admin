@@ -156,14 +156,14 @@ const Employees = () => {
               </select>
             </label>
           </div>
-          <div>
+          <div >
             <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
               Search
             </button>
           </div>
         </div>
         <div>
-          <button onClick={exportToExcel}>
+          <button className="downloadBtn" onClick={exportToExcel}>
             <IoMdDownload size={20} /> Download Report
           </button>
         </div>
