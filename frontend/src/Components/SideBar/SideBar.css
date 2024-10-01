@@ -42,6 +42,22 @@
   border-radius: 7px;
   background-color: #0d6efd;
 }
+.vts-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vts-logo img{
+  margin-top: 1em;
+  width: 3em;
+}
+.vts-logo .vts-text{
+  color: white;
+  font-size: 1.5em;
+  font-weight: 400;
+  letter-spacing: 6px;
+}
+.vts-logo
 .sidebar .sidebar-navlinks .logout-navlink {
   position: fixed;
   bottom: 1em;
