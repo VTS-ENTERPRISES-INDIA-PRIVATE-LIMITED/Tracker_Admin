@@ -182,6 +182,11 @@ const Employees = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+        <select onChange={e=>setShiftFilter(e.target.value)}>
+          <option value={"Full Time"}>Full Time</option>
+          <option value={"First"}>First</option>
+          <option value={"Second"}>Second</option>
+        </select>
         <div>
           <label htmlFor="input">
             Working Days{" "}
