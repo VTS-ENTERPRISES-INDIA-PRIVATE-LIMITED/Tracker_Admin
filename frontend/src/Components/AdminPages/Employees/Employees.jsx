@@ -12,7 +12,7 @@ const Employees = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [empData, setEmpData] = useState([]);
-  
+
   const months = moment.months();
   const years = Array.from(
     { length: 30 },
@@ -26,8 +26,8 @@ const Employees = () => {
   });
   useEffect(() => {
     const formatDate = (date) => {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
       const year = date.getFullYear();
       return `${day}/${month}/${year}`;
     };
@@ -35,29 +35,33 @@ const Employees = () => {
     const currentDate = new Date();
     const formattedCurrentDate = formatDate(currentDate);
 
-    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const startOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
     const formattedStartOfMonth = formatDate(startOfMonth);
-    handleFetchData(formattedStartOfMonth,formattedCurrentDate)
-
+    handleFetchData(formattedStartOfMonth, formattedCurrentDate);
   }, []);
 
-  const handleFetchData = (startDate,endDate)=>{
-    setIsLoading(true)
-    const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/getEmployeeAttendanceData`
-    axios.post(url,{
-      startDate : startDate,
-      endDate : endDate
-    })
-    .then(res=>{
-      console.log(res.data)
-      setEmpData(res.data)
-      setIsLoading(false)
-    })
-    .catch(err=>{
-      console.log(err)
-      setIsLoading(false)
-    })
-  }
+  const handleFetchData = (startDate, endDate) => {
+    setIsLoading(true);
+    const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/getEmployeeAttendanceData`;
+    axios
+      .post(url, {
+        startDate: startDate,
+        endDate: endDate,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setEmpData(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  };
   const handleSearch = () => {
     if (month && year) {
       const start = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
@@ -67,8 +71,7 @@ const Employees = () => {
         .endOf("month")
         .format("DD/MM/YYYY");
 
-  
-      handleFetchData(start,end)
+      handleFetchData(start, end);
     } else {
       message.error("Please select both month and year.");
     }
@@ -110,13 +113,11 @@ const Employees = () => {
     ).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
     const timestamp = `${date}_${time}`;
     const filename = searchQuery
-      ? `Filtered_Receivables_Report_${timestamp}.xlsx` 
-      : `Receivables_Report_${timestamp}.xlsx`; 
+      ? `Filtered_Receivables_Report_${timestamp}.xlsx`
+      : `Receivables_Report_${timestamp}.xlsx`;
 
     XLSX.writeFile(workbook, filename);
   };
- 
-
 
   return (
     <div className="Emptable-cont">
@@ -163,43 +164,44 @@ const Employees = () => {
       <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
         Search
       </button>
+      <div className="Emptable">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee Id</th>
+              <th>Employee Name</th>
+              <th>Shift</th>
+              <th>No.of Days Present</th>
+              <th>No.of Leaves taken</th>
+            </tr>
+          </thead>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Employee Id</th>
-            <th>Employee Name</th>
-            <th>Shift</th>
-            <th>No.of Days Present</th>
-            <th>No.of Leaves taken</th>
-          </tr>
-        </thead>
+          <tbody>
+            {isLoading ? (
+              <div>
+                <p>loading....</p>
+              </div>
+            ) : (
+              <>
+                {filteredEmpData.length > 0 ? (
+                  filteredEmpData.map((item) => (
+                    <tr key={item.EmpId}>
+                      <td>{item.EmpId}</td>
+                      <td>{item.Name}</td>
+                      <td>{item.Shift}</td>
+                      <td>{item.PresentCount}</td>
 
-        <tbody>
-          {isLoading ? (
-            <div>
-              <p>loading....</p>
-            </div>
-          ) : (
-            <>
-              {filteredEmpData.length > 0 ? (
-                filteredEmpData.map((item) => (
-                  <tr key={item.EmpId}>
-                    <td>{item.EmpId}</td>
-                    <td>{item.Name}</td>
-                    <td>{item.Shift}</td>
-                    <td>{item.PresentCount}</td>
-
-                    {/* <td>{item.}</td> */}
-                  </tr>
-                ))
-              ) : (
-                <p>No Data...</p>
-              )}
-            </>
-          )}
-        </tbody>
-      </table>
+                      {/* <td>{item.}</td> */}
+                    </tr>
+                  ))
+                ) : (
+                  <p>No Data...</p>
+                )}
+              </>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
