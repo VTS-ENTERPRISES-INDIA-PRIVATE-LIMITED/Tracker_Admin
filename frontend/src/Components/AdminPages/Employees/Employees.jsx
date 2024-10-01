@@ -3,6 +3,7 @@ import moment from "moment";
 import axios from "axios";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
+import "../../AdminPages/Employees/Employees.css";
 
 const Employees = () => {
   const [month, setMonth] = useState("");
@@ -17,7 +18,10 @@ const Employees = () => {
     (_, i) => new Date().getFullYear() - i
   );
   const filteredEmpData = empData.filter((item) => {
-    return item.Name.toUpperCase().includes(searchQuery.toUpperCase());
+    return (
+      item.Name.toUpperCase().includes(searchQuery.toUpperCase()) ||
+      item.EmpId.toUpperCase().includes(searchQuery.toUpperCase())
+    );
   });
   const handleSearch = () => {
     if (month && year) {
@@ -78,19 +82,18 @@ const Employees = () => {
     XLSX.writeFile(workbook, filename);
   };
   const handlefetchData = async () => {
-    const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/getEmployeeAttendanceData`;
-    axios
-      .get(url)
-      .then((res) => {
-        console.log("Emp", res.data);
-        setEmpData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/attendance/getEmployeeAttendanceData`
+      );
+
+      setEmpData(res.data);
+      console.log("Emp", res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     handlefetchData();

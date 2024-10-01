@@ -31,8 +31,9 @@ const Leaves = () => {
   };
 
   const filteredLeavesData = leaveData.filter((item) => {
-    const searchFilter = item.Name.toUpperCase().includes(searchQuery.toUpperCase()) 
-    || item.EmpId.toUpperCase().includes(searchQuery.toUpperCase())
+    const searchFilter =
+      item.Name.toUpperCase().includes(searchQuery.toUpperCase()) ||
+      item.EmpId.toUpperCase().includes(searchQuery.toUpperCase());
 
     const dropDownFilter = dropDownValue
       ? item.Status.toUpperCase() === dropDownValue.toUpperCase()
