@@ -16,10 +16,34 @@ const Dashboard = () => {
     const presentCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/getPresentEmployeeCount`;
 
     axios
-      .get(breakfastCount)
-      .then((res) => setBreakfastCount(res.data[0]))
+      .get(breakfastCountUrl)
+      .then((res) => setBreakfastCount(res.data[0].BreakfastCount))
       .catch((err) => {
         setBreakfastCount(0);
+        console.log(err);
+      });
+      axios
+      .get(lunchCountUrl)
+      .then((res) => {
+        console.log(res.data[0])
+        setLunchCount(res.data[0].LunchCount)})
+
+      .catch((err) => {
+        setLunchCount(0);
+        console.log(err);
+      });
+      axios
+      .get(dinnerCountUrl)
+      .then((res) => setDinnerCount(res.data[0].DinnerCount))
+      .catch((err) => {
+        setDinnerCount(0);
+        console.log(err);
+      });
+      axios
+      .get(presentCountUrl)
+      .then((res) => setPresentCount(res.data[0].PresentCount))
+      .catch((err) => {
+        setPresentCount(0);
         console.log(err);
       });
   });
@@ -64,19 +88,19 @@ const Dashboard = () => {
         <div className="Cards-cont">
           <div className="cont">
             <label>No.of Present:</label>
-            <p> 7</p>
+            <p> {presntCount}</p>
           </div>
           <div className="cont">
             <label>Breakfast Count</label>
-            <p> 7</p>
+            <p> {breakfastCount}</p>
           </div>
           <div className="cont">
             <label>Lunch Count</label>
-            <p> 7</p>
+            <p> {lunchCount}</p>
           </div>
           <div className="cont">
             <label>Dinner Count</label>
-            <p> 7</p>
+            <p> {dinnerCount}</p>
           </div>
         </div>
       )}
@@ -84,15 +108,15 @@ const Dashboard = () => {
         <div className="Cards-cont">
           <div className="cont">
             <label>No.of Present:</label>
-            <p> 7</p>
+            <p> {presntCount}</p>
           </div>
           <div className="cont">
             <label>Breakfast Count</label>
-            <p> 7</p>
+            <p> {breakfastCount}</p>
           </div>
           <div className="cont">
             <label>Lunch Count</label>
-            <p> 7</p>
+            <p> {lunchCount}</p>
           </div>
         </div>
       )}
@@ -100,12 +124,12 @@ const Dashboard = () => {
         <div className="Cards-cont">
           <div className="cont">
             <label>No.of Present</label>
-            <p> 7</p>
+            <p> {presntCount}</p>
           </div>
 
           <div className="cont">
             <label>Dinner Count</label>
-            <p> 7</p>
+            <p> {dinnerCount}</p>
           </div>
         </div>
       )}
