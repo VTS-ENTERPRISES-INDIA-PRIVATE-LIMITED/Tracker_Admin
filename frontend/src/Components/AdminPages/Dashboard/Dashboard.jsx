@@ -8,12 +8,12 @@ const Dashboard = () => {
   const [lunchCount, setLunchCount] = useState();
   const [dinnerCount, setDinnerCount] = useState();
   const [presntCount, setPresentCount] = useState();
-
-  useEffect(() => {
+  const [presentEmpData,setPresentEmpData] = useState([])
+  const handleCountFetch = ()=>{
     const breakfastCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/breakfastcount`;
     const lunchCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/lunchcount`;
     const dinnerCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/dinnercount`;
-    const presentCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/getPresentEmployeeCount`;
+    const presentCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/shiftWiseEmployees/${shiftType}`;
 
     axios
       .get(breakfastCountUrl)
@@ -41,12 +41,17 @@ const Dashboard = () => {
       });
       axios
       .get(presentCountUrl)
-      .then((res) => setPresentCount(res.data[0].PresentCount))
+      .then((res) => {
+        setPresentEmpData(res.data)
+        setPresentCount(res.data.length)})
       .catch((err) => {
         setPresentCount(0);
         console.log(err);
       });
-  });
+  }
+  useEffect(() => {
+   handleCountFetch()
+  },[shiftType]);
   const handleShiftType = (e) => {
     setShiftType(e.target.value);
   };
@@ -133,6 +138,7 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };
