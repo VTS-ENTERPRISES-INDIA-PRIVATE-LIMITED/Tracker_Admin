@@ -28,8 +28,57 @@ const FoodTracker = () => {
       [name]: value,
     }));
   };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const data = {
+  //     Name: localStorage.getItem("empname"),
+  //     EmpId: localStorage.getItem("empid"),
+  //     Shift: selectShift,
+  //     Breakfast: hadBreakfast,
+  //     Lunch: willingLunch,
+  //     Dinner: willingDinner,
+  //     CabinNo: cabinNo,
+  //   };
+
+  //   console.log(data);
+  //   const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/postAttendance`;
+  //   setSubmitText("Posting...");
+  //   axios
+  //     .post(url, data)
+  //     .then((res) => {
+  //       message.success("Attendance posted successfully");
+  //       setSubmitText("Done");
+  //     })
+  //     .catch((err) => {
+  //       message.error("Error posting attendance");
+  //       setSubmitText("Failed! Try again");
+  //     });
+  // };
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinutes = currentTime.getMinutes();
+  
+    if (selectShift === "Full Time" || selectShift === "First") {
+      if (currentHour > 9 || (currentHour === 9 && currentMinutes >= 45)) {
+        message.error("Login time has already passed for full time or first shift.");
+        return;
+      }
+    } else if (selectShift === "Second") {
+      if (
+        (currentHour < 14 || (currentHour === 14 && currentMinutes < 45)) || 
+        (currentHour > 15 || (currentHour === 15 && currentMinutes > 30))
+      ) {
+        message.error("Responses for second shift are only allowed between 2:45 PM and 3:30 PM.");
+        return;
+      }
+    }
+  if(selectShift===''){
+    message.error("Please fill out all the details ");
+    return
+  }
     const data = {
       Name: localStorage.getItem("empname"),
       EmpId: localStorage.getItem("empid"),
@@ -39,7 +88,7 @@ const FoodTracker = () => {
       Dinner: willingDinner,
       CabinNo: cabinNo,
     };
-
+  
     console.log(data);
     const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/postAttendance`;
     setSubmitText("Posting...");
@@ -54,7 +103,7 @@ const FoodTracker = () => {
         setSubmitText("Failed! Try again");
       });
   };
-
+  
   const handleShiftTypeChange = (e) => {
     const selectedShift = e.target.value;
     setSelectShift(selectedShift);
