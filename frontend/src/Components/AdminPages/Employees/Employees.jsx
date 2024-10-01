@@ -4,6 +4,7 @@ import axios from "axios";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
 import "../../AdminPages/Employees/Employees.css";
+import { message } from "antd";
 
 const Employees = () => {
   const [month, setMonth] = useState("");
@@ -11,7 +12,7 @@ const Employees = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [empData, setEmpData] = useState([]);
-
+  
   const months = moment.months();
   const years = Array.from(
     { length: 30 },
@@ -23,20 +24,53 @@ const Employees = () => {
       item.EmpId.toUpperCase().includes(searchQuery.toUpperCase())
     );
   });
+  useEffect(() => {
+    const formatDate = (date) => {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    };
+
+    const currentDate = new Date();
+    const formattedCurrentDate = formatDate(currentDate);
+
+    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const formattedStartOfMonth = formatDate(startOfMonth);
+    handleFetchData(formattedStartOfMonth,formattedCurrentDate)
+
+  }, []);
+
+  const handleFetchData = (startDate,endDate)=>{
+    setIsLoading(true)
+    const url = `${process.env.REACT_APP_BACKEND_URL}/attendance/getEmployeeAttendanceData`
+    axios.post(url,{
+      startDate : startDate,
+      endDate : endDate
+    })
+    .then(res=>{
+      console.log(res.data)
+      setEmpData(res.data)
+      setIsLoading(false)
+    })
+    .catch(err=>{
+      console.log(err)
+      setIsLoading(false)
+    })
+  }
   const handleSearch = () => {
     if (month && year) {
-      const startDate = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
+      const start = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
         .startOf("month")
         .format("DD/MM/YYYY");
-      const endDate = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
+      const end = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
         .endOf("month")
         .format("DD/MM/YYYY");
 
-      console.log(`Start Date: ${startDate}`);
-      console.log(`End Date: ${endDate}`);
-      console.log(`Year: ${year}`);
+  
+      handleFetchData(start,end)
     } else {
-      console.log("Please select both month and year.");
+      message.error("Please select both month and year.");
     }
   };
   const exportToExcel = () => {
@@ -76,28 +110,13 @@ const Employees = () => {
     ).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
     const timestamp = `${date}_${time}`;
     const filename = searchQuery
-      ? `Filtered_Receivables_Report_${timestamp}.xlsx` // Filename for filtered data
-      : `Receivables_Report_${timestamp}.xlsx`; // Filename for full table
+      ? `Filtered_Receivables_Report_${timestamp}.xlsx` 
+      : `Receivables_Report_${timestamp}.xlsx`; 
 
     XLSX.writeFile(workbook, filename);
   };
-  const handlefetchData = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/attendance/getEmployeeAttendanceData`
-      );
+ 
 
-      setEmpData(res.data);
-      console.log("Emp", res.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    handlefetchData();
-  }, []);
 
   return (
     <div className="Emptable-cont">
