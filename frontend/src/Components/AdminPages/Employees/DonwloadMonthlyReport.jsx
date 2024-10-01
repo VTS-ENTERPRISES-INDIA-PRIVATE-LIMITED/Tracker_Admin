@@ -9,18 +9,18 @@ const AttendanceReport = ({ month, year }) => {
   const [attendanceData, setAttendanceData] = useState([]);
 
   const monthMap = {
-    January: '01',
-    February: '02',
-    March: '03',
-    April: '04',
-    May: '05',
-    June: '06',
-    July: '07',
-    August: '08',
-    September: '09',
-    October: '10',
-    November: '11',
-    December: '12',
+    January: "01",
+    February: "02",
+    March: "03",
+    April: "04",
+    May: "05",
+    June: "06",
+    July: "07",
+    August: "08",
+    September: "09",
+    October: "10",
+    November: "11",
+    December: "12",
   };
 
   const fetchAttendanceData = async (selectedMonth, selectedYear) => {
@@ -106,14 +106,11 @@ const AttendanceReport = ({ month, year }) => {
 
   // Helper function to get the days of the month, excluding weekends
   const getDaysInMonth = (month, year) => {
-    const date = new Date(year, month, 0);
     const daysInMonth = [];
-    for (let i = 1; i <= date.getDate(); i++) {
-      const day = new Date(year, month - 1, i);
-      if (day.getDay() !== 0 && day.getDay() !== 6) {
-        // Exclude Sundays (0) and Saturdays (6)
-        daysInMonth.push(day);
-      }
+    const lastDay = new Date(year, month, 0).getDate(); // Get last day of the month
+    for (let i = 1; i <= lastDay; i++) {
+      const day = new Date(year, month - 1, i); // month - 1 because month is 0-based
+      daysInMonth.push(day); // Include all days, including weekends
     }
     return daysInMonth;
   };
