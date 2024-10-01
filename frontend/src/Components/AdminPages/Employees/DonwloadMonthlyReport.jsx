@@ -1,37 +1,38 @@
 import { message } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
 
 const AttendanceReport = ({ month, year }) => {
+  console.log(month, year);
   const [attendanceData, setAttendanceData] = useState([]);
-  const [isDataFetched, setIsDataFetched] = useState(false);
 
   const monthMap = {
-    January: 1,
-    February: 2,
-    March: 3,
-    April: 4,
-    May: 5,
-    June: 6,
-    July: 7,
-    August: 8,
-    September: 9,
-    October: 10,
-    November: 11,
-    December: 12,
+    January: '01',
+    February: '02',
+    March: '03',
+    April: '04',
+    May: '05',
+    June: '06',
+    July: '07',
+    August: '08',
+    September: '09',
+    October: '10',
+    November: '11',
+    December: '12',
   };
 
-  const fetchAttendanceData = async () => {
+  const fetchAttendanceData = async (selectedMonth, selectedYear) => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/attendance/getAllEmployees`
+        `${process.env.REACT_APP_BACKEND_URL}/attendance/getAllEmployees/${selectedMonth}/${selectedYear}`
       );
       console.log("attendance data", res.data);
       setAttendanceData(res.data);
-      setIsDataFetched(true); 
     } catch (err) {
       console.error(err);
+      message.error("Error fetching attendance data");
     }
   };
 
@@ -41,42 +42,37 @@ const AttendanceReport = ({ month, year }) => {
       return;
     }
 
-    if (!isDataFetched) {
-      await fetchAttendanceData();
+    const selectedMonth = monthMap[month]; // Convert month name to number
+    if (!selectedMonth) {
+      message.error("Invalid month selected.");
+      return;
     }
 
-    const monthNumber = monthMap[month];
-    const monthDays = getDaysInMonth(monthNumber, year);
+    await fetchAttendanceData(selectedMonth, year); // Fetch data before generating Excel
 
-    const filteredData = attendanceData.filter((record) => {
-      const recordDate = new Date(record.date);
-      return (
-        recordDate.getMonth() + 1 === monthNumber &&
-        recordDate.getFullYear() === parseInt(year)
-      );
-    });
-
-    if (filteredData.length === 0) {
+    if (attendanceData.length === 0) {
       message.warning("No attendance data available for the selected month.");
       return;
     }
+
+    const monthDays = getDaysInMonth(selectedMonth, year);
 
     const sheetData = [];
     sheetData.push([
       "Employee Id",
       "Employee Name",
       "Shift",
-      ...monthDays,
+      ...monthDays.map((day) => formatDate(day)),
       "Total Present",
       "Leaves",
     ]);
 
     const employees = Array.from(
-      new Set(filteredData.map((item) => item.EmpId))
+      new Set(attendanceData.map((item) => item.EmpId))
     ).sort();
 
     employees.forEach((empId) => {
-      const employeeRecords = filteredData.filter(
+      const employeeRecords = attendanceData.filter(
         (record) => record.EmpId === empId
       );
       const employeeName = employeeRecords[0]?.Name || "";
@@ -87,7 +83,7 @@ const AttendanceReport = ({ month, year }) => {
       monthDays.forEach((date) => {
         const formattedDate = formatDate(date);
         const attendanceRecord = employeeRecords.find(
-          (record) => formatDate(new Date(record.date)) === formattedDate
+          (record) => record.date === formattedDate // String comparison
         );
         if (attendanceRecord && attendanceRecord.IsPresent === 1) {
           row.push("P");
@@ -133,7 +129,10 @@ const AttendanceReport = ({ month, year }) => {
 
   return (
     <div>
-      <button onClick={generateExcel}>Download Attendance Report</button>
+      <button className="adminportal-btn" onClick={generateExcel}>
+        <IoMdDownload size={15} />
+        Download Attendance Report
+      </button>
     </div>
   );
 };

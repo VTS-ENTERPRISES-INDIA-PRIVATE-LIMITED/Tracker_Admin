@@ -168,10 +168,11 @@ const Employees = () => {
             </button>
           </div>
         </div>
-        <div>
-          <button className="downloadBtn" onClick={exportToExcel}>
-            <IoMdDownload size={20} /> Download Report
+        <div style={{display:"flex"}}>
+          <button className="downloadBtn adminportal-btn" onClick={exportToExcel}>
+            <IoMdDownload size={15} /> Download Report
           </button>
+          <AttendanceReport month={month} year={year} />
         </div>
       </div>
 
@@ -185,11 +186,16 @@ const Employees = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+        <label htmlFor="">Select Shift : 
         <select onChange={e=>setShiftFilter(e.target.value)}>
-          <option value={"Full Time"}>Full Time</option>
-          <option value={"First"}>First</option>
-          <option value={"Second"}>Second</option>
-        </select>
+              
+              <option value={"--select--"}>Select</option>
+              <option value={"Full Time"}>Full Time</option>
+              <option value={"First"}>First</option>
+              <option value={"Second"}>Second</option>
+            </select>
+        </label>
+        
         <div>
           <label htmlFor="input">
             Working Days{" "}

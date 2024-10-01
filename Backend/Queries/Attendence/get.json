@@ -1,5 +1,5 @@
 {
-  "getall":"Select * from Attendance",
+  "getall":"SELECT * FROM Attendance WHERE DATE_FORMAT(STR_TO_DATE(date, '%d/%m/%Y'), '%m/%Y') = ?;",
   "getByShift":"SELECT Shift, COUNT(*) AS ShiftwiseCount FROM Attendance  GROUP BY Shift AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE() AND IsPresent = 1;",
   "getByCabin":"SELECT CabinNo, COUNT(*) AS CabinwiseCount FROM Attendance GROUP BY CabinNo AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE() AND IsPresent = 1;",
   "getpresenteecount":"SELECT COUNT(*) AS PresentCount FROM Attendance WHERE IsPresent = 1 AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE() ;",
