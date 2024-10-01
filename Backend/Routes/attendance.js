@@ -138,8 +138,50 @@ router.get('/lunchcount', async (req, res) => {
 
 router.get('/getAllEmployees', async (req, res) => {
     try {
-        const [rows] = await connection.query(getQueries.getall);
-        res.json(rows);
+        const rows = await connection.query(getQueries.getall);
+        res.json(rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+router.get('/lunchdetails', async (req, res) => {
+    try {
+        const result = await connection.query(getQueries.EmployesBasedOnLunch);
+        res.json(result[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+router.get('/breakfastdetails', async (req, res) => {
+    try {
+        const result = await connection.query(getQueries.EmployesBasedOnBF);
+        res.json(result[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+router.get('/dinnerdetails', async (req, res) => {
+    try {
+        const result = await connection.query(getQueries.EmployesBasedOnDinner);
+        res.json(result[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+router.get('/presenteedetails', async (req, res) => {
+    try {
+        const result = await connection.query(getQueries.getpresentedeatils);
+        res.json(result[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.get('/shiftWiseEmployees/:shift', async (req, res) => {
+    const {shift}=req.params;
+    try {
+        const result = await connection.query(getQueries.EmployeeDetailsShiftwise,[shift]);
+        res.json(result[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
