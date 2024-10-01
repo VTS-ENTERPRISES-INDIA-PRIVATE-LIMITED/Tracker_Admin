@@ -30,7 +30,7 @@ const Employees = () => {
       item.EmpId.toUpperCase().includes(searchQuery.toUpperCase());
     return matchesShift && matchesSearch;
   });
-  
+
   useEffect(() => {
     const formatDate = (date) => {
       const day = String(date.getDate()).padStart(2, "0");
@@ -70,7 +70,7 @@ const Employees = () => {
       });
   };
   const handleSearch = () => {
-    console.log(month,year)
+    console.log(month, year);
     if (month && year) {
       const start = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
         .startOf("month")
@@ -85,19 +85,22 @@ const Employees = () => {
     }
   };
 
- 
   const exportToExcel = () => {
     const dataToExport = searchQuery ? filteredEmpData : empData;
 
-    const formattedData = dataToExport.map((item) => ({
-      EmpId: item.EmpId,
-      Name: item.Name,
-      Reason: item.Reason,
-      fromDate: item.StartDate,
-      endDate: item.EndDate,
-      NoOfDays: item.NoOfDays,
-      status: item.status,
-    }));
+    const formattedData = dataToExport.map((item) => {
+      const noOfLeaves = workingDays
+        ? workingDays - item.PresentCount
+        : 25 - item.PresentCount;
+
+      return {
+        EmpId: item.EmpId,
+        Name: item.Name,
+        Shift: item.Shift,
+        NoofDaysPresent: item.PresentCount,
+        NoOfLeavesCount: noOfLeaves, // Add calculated leaves count
+      };
+    });
 
     const worksheet = XLSX.utils.json_to_sheet(formattedData);
 
@@ -159,7 +162,7 @@ const Employees = () => {
               </select>
             </label>
           </div>
-          <div >
+          <div>
             <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
               Search
             </button>
