@@ -11,6 +11,8 @@
   "getEmployeeById": "SELECT * FROM hrms_employees WHERE EmployeeID = ?",
   "EmployesBasedOnBF":"SELECT * FROM Attendance WHERE Breakfast = 'Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
   "EmployesBasedOnLunch":"SELECT * FROM Attendance WHERE Lunch='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
-  "EmployesBasedOnDinner":"SELECT * FROM Attendance WHERE Dinner='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();"
+  "EmployesBasedOnDinner":"SELECT * FROM Attendance WHERE Dinner='Yes' AND STR_TO_DATE(date, '%d/%m/%Y') = CURDATE();",
+  "EmployeeDetailsShiftwise":"SELECT * from Attendance Where IsPresent = 1 and Shift=?"
+
 
 }
