@@ -1,11 +1,10 @@
-
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
-import { Empty } from 'antd';
+import { Empty } from "antd";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
-import "../../AdminPages/Employees/Employees.css";
+import "./Employees.css";
 import { message } from "antd";
 import AttendanceReport from "./DonwloadMonthlyReport";
 
@@ -132,8 +131,49 @@ const Employees = () => {
 
   return (
     <div className="Emptable-cont">
-      <div className="table-optns">
+      <div className="table-optns0">
         <div className="table-optns1">
+          <div>
+            <label>
+              Select Month:
+              <select value={month} onChange={(e) => setMonth(e.target.value)}>
+                <option value="">Select Month</option>
+                {months.map((m, index) => (
+                  <option key={index} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div>
+            <label style={{ marginLeft: "20px" }}>
+              Select Year:
+              <select value={year} onChange={(e) => setYear(e.target.value)}>
+                <option value="">Select Year</option>
+                {years.map((y, index) => (
+                  <option key={index} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div>
+            <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
+              Search
+            </button>
+          </div>
+        </div>
+        <div>
+          <button onClick={exportToExcel}>
+            <IoMdDownload size={20} /> Download Report
+          </button>
+        </div>
+      </div>
+
+      <div className="table-optns2">
+        <div>
           <input
             className="searchfilter"
             type="text"
@@ -142,49 +182,22 @@ const Employees = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="table-optns2">
-          <button onClick={exportToExcel}>
-            <IoMdDownload size={20} /> Download Report
-          </button>
-          <AttendanceReport month={month} year={year} attendanceData={attendanceData}/>
+        <div>
+          <label htmlFor="input">
+            Working Days{" "}
+            <input
+              placeholder="25 By Default"
+              onChange={(e) => setWorkingDays(e.target.value)}
+            />
+          </label>
         </div>
       </div>
-      <label>
-        Select Month:
-        <select value={month} onChange={(e) => setMonth(e.target.value)}>
-          <option value="">Select Month</option>
-          {months.map((m, index) => (
-            <option key={index} value={m}>
-              {m}
-            </option>
-          ))}
-        </select>
-      </label>
 
-      <label style={{ marginLeft: "20px" }}>
-        Select Year:
-        <select value={year} onChange={(e) => setYear(e.target.value)}>
-          <option value="">Select Year</option>
-          {years.map((y, index) => (
-            <option key={index} value={y}>
-              {y}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
-        Search
-      </button>
-
-      <label htmlFor="input">
-        Working Days <input placeholder="25 By Default"  onChange={e=>setWorkingDays(e.target.value)} />
-      </label>
       <div className="Emptable">
         <table>
           <thead>
             <tr>
-              <th>Employee Id</th>
+              <th>Emp Id</th>
               <th>Employee Name</th>
               <th>Shift</th>
               <th>No.of Days Present</th>
@@ -207,16 +220,19 @@ const Employees = () => {
                       <td>{item.Shift}</td>
                       <td>{item.PresentCount}</td>
 
-                      <td>{workingDays?(workingDays-item.PresentCount):(25-item.PresentCount)}</td>
+                      <td>
+                        {workingDays
+                          ? workingDays - item.PresentCount
+                          : 25 - item.PresentCount}
+                      </td>
                     </tr>
                   ))
                 ) : (
-                  <tr >
+                  <tr>
                     <td colSpan={5}>
-                    <Empty className="no-data-msg" />
+                      <Empty className="no-data-msg" />
                     </td>
                   </tr>
-                  
                 )}
               </>
             )}

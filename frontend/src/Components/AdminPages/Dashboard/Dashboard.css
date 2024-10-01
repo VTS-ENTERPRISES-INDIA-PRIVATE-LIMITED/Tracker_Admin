@@ -10,10 +10,15 @@
   margin: 2vh 1vw;
   flex-grow: 1;
 }
-.AdminDash-cont .select-cont {
+.AdminDash-cont .table-optns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   /* text-align: left; */
+  height: 2em;
   margin: 1em auto;
 }
+
 .AdminDash-cont select {
   margin: 0;
   padding: 5px;
@@ -28,7 +33,7 @@
   margin: 10px auto;
   border: 1px solid rgba(128, 128, 128, 0.253);
   border-radius: 7px;
-  height: 20%;
+  height: 12%;
   text-align: left;
 }
 .AdminDash-cont .wish-container .time-date {
@@ -70,10 +75,15 @@
   height: 600px;
   overflow-y: scroll;
 }
+
 .AdminDash-cont table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 15px;
+}
+.AdminDash-cont .Dashtable .selectShiftType {
+  display: flex;
+  justify-content: center;
 }
 
 .AdminDash-cont thead {
@@ -86,7 +96,7 @@
   text-align: left;
   font-size: 0.9rem;
   /* border-bottom: 1px solid #ddd; */
-  border-bottom: 1px solid rgba(52, 71, 103, 0.103);
+  border-bottom: 0.5px solid rgba(52, 71, 103, 0.103);
 }
 
 .AdminDash-cont th {
