@@ -1,8 +1,8 @@
 .leavetable-cont {
   width: 78vw;
   background-color: white;
- height: 96vh;
- overflow-y: scroll;
+  height: 96vh;
+  overflow-y: scroll;
   box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem,
     rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0;
   border-radius: 11px;
@@ -51,9 +51,9 @@
 .leavetable-cont td {
   text-align: left;
 }
-.leavetable-cont .leavebuttons{
-    display:flex;
-    align-items: center;
+.leavetable-cont .leavebuttons {
+  display: flex;
+  align-items: center;
 }
 
 .leavetable-cont .leavebuttons button {
@@ -62,10 +62,17 @@
   cursor: pointer;
 }
 .leavetable-cont .leavebuttons .right {
-  color: rgb(0, 255, 0);
+  color: rgb(6, 122, 6);
+  border-radius: 50%;
+  cursor: pointer;
 }
 .leavetable-cont .leavebuttons .cross {
   color: red;
+  cursor: pointer;
+}
+.leavetable-cont .leavebuttons .eye {
+  color: #0f52b8;
+  cursor: pointer;
 }
 .leavetable-cont .searchfilter {
   padding: 5px;
