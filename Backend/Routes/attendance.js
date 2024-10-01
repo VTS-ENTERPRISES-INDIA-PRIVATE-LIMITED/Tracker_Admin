@@ -146,7 +146,7 @@ router.get('/getAllEmployees', async (req, res) => {
 });
 router.get('/lunchdetails', async (req, res) => {
     try {
-        const result = await connection.query(getQueries.lunchdetails);
+        const result = await connection.query(getQueries.EmployesBasedOnLunch);
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -154,7 +154,7 @@ router.get('/lunchdetails', async (req, res) => {
 });
 router.get('/breakfastdetails', async (req, res) => {
     try {
-        const result = await connection.query(getQueries.breakfastdetais);
+        const result = await connection.query(getQueries.EmployesBasedOnBF);
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -162,7 +162,7 @@ router.get('/breakfastdetails', async (req, res) => {
 });
 router.get('/dinnerdetails', async (req, res) => {
     try {
-        const result = await connection.query(getQueries.dinnerdetails);
+        const result = await connection.query(getQueries.EmployesBasedOnDinner);
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
