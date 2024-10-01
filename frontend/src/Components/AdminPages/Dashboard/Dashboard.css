@@ -10,10 +10,15 @@
   margin: 2vh 1vw;
   flex-grow: 1;
 }
-.AdminDash-cont .select-cont {
+.AdminDash-cont .table-optns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   /* text-align: left; */
+  height: 2em;
   margin: 1em auto;
 }
+
 .AdminDash-cont select {
   margin: 0;
   padding: 5px;
@@ -28,7 +33,7 @@
   margin: 10px auto;
   border: 1px solid rgba(128, 128, 128, 0.253);
   border-radius: 7px;
-  height: 20%;
+  height: 12%;
   text-align: left;
 }
 .AdminDash-cont .wish-container .time-date {

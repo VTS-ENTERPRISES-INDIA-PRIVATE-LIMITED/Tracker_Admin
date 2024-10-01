@@ -16,7 +16,6 @@
 .Emptable-cont .Emptable {
   height: 600px;
   border-collapse: collapse;
-  border-radius: 15px;
   overflow-y: scroll;
 }
 
@@ -34,7 +33,6 @@
 }
 
 .Emptable-cont th {
-
   font-size: 16px;
   font-weight: 500;
   text-align: left;

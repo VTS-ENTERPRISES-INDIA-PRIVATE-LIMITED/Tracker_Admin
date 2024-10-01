@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../../AdminPages/Dashboard/Dashboard.css";
 import DateTime from "../../../Utils/Datetime";
 import axios from "axios";
+import * as XLSX from "xlsx";
+import { IoMdDownload } from "react-icons/io";
+
 const Dashboard = () => {
   const [shiftType, setShiftType] = useState("");
   const [selectShift, setSelectType] = useState(true);
@@ -56,6 +59,42 @@ const Dashboard = () => {
         setSelectType(false);
       });
   };
+  const exportToExcel = () => {
+    const formattedData = presentEmpData.map((item) => ({
+      EmpId: item.EmpId,
+      Name: item.Name,
+      Shift: item.Shift,
+      CabinNo: item.CabinNo,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+
+    const wscols = [
+      { wch: 10 },
+      { wch: 25 },
+      { wch: 18 },
+      { wch: 12 },
+      { wch: 12 },
+    ];
+    worksheet["!cols"] = wscols;
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Emp Leaves Details");
+
+    const now = new Date();
+    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(now.getDate()).padStart(2, "0")}`;
+    const time = `${String(now.getHours()).padStart(2, "0")}-${String(
+      now.getMinutes()
+    ).padStart(2, "0")}-${String(now.getSeconds()).padStart(2, "0")}`;
+    const timestamp = `${date}_${time}`;
+    const filename = `Emplopyees_Report_${timestamp}.xlsx`;
+
+    XLSX.writeFile(workbook, filename);
+  };
+
   useEffect(() => {
     handleCountFetch();
   }, [shiftType]);
@@ -73,29 +112,34 @@ const Dashboard = () => {
           </span>
           ,
         </h2>
-        <p style={{ boxSizing: "border-box" }}>
-          {localStorage.getItem("empid")}, {localStorage.getItem("emprole")}
-        </p>
       </div>
-      <div className="select-cont">
-        Select Shift :{" "}
-        <select value={shiftType} onChange={handleShiftType}>
-          <label>select Shift Type</label>
-          <option value="">Select</option>
-          <option value={"Full Time"} key={"Full Time"}>
-            Full Time
-          </option>
-          <option value={"First"} key={"First"}>
-            First
-          </option>
-          <option value={"Second"} key={"Second"}>
-            Second
-          </option>
-          <option value={"Work From Home"} key={"Work From Home"}>
-            Work From Home
-          </option>
-        </select>
+      <div className="table-optns">
+        <div className="table-optns1">
+          Select Shift :
+          <select value={shiftType} onChange={handleShiftType}>
+            <label>select Shift Type</label>
+            <option value="">Select</option>
+            <option value={"Full Time"} key={"Full Time"}>
+              Full Time
+            </option>
+            <option value={"First"} key={"First"}>
+              First
+            </option>
+            <option value={"Second"} key={"Second"}>
+              Second
+            </option>
+            <option value={"Work From Home"} key={"Work From Home"}>
+              Work From Home
+            </option>
+          </select>
+        </div>
+        <div className="table-optns2">
+          <button onClick={exportToExcel}>
+            <IoMdDownload size={20} /> Download Report
+          </button>
+        </div>
       </div>
+
       {shiftType && shiftType === "Full Time" && (
         <div className="Cards-cont">
           <div className="cont">
@@ -146,41 +190,40 @@ const Dashboard = () => {
         </div>
       )}
       <div className="Dashtable">
-      <table>
-        <thead>
-          <tr>
-            <th>Employee Id</th>
-            <th>Employee Name</th>
-            <th>Shift</th>
-            <th>Cabin</th>
-          </tr>
-        </thead>
+        <table>
+          <thead>
+            <tr>
+              <th>Employee Id</th>
+              <th>Employee Name</th>
+              <th>Shift</th>
+              <th>Cabin</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {selectShift ? (
-            <div>
-              <p>Select Shift Type</p>
-            </div>
-          ) : (
-            <>
-              {presentEmpData.length > 0 ? (
-                presentEmpData.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.EmpId}</td>
-                    <td>{item.Name}</td>
-                    <td>{item.Shift}</td>
-                    <td>{item.CabinNo}</td>
-                  </tr>
-                ))
-              ) : (
-                <p>Select Shift Type...</p>
-              )}
-            </>
-          )}
-        </tbody>
-      </table>
+          <tbody>
+            {selectShift ? (
+              <div>
+                <p>Select Shift Type</p>
+              </div>
+            ) : (
+              <>
+                {presentEmpData.length > 0 ? (
+                  presentEmpData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.EmpId}</td>
+                      <td>{item.Name}</td>
+                      <td>{item.Shift}</td>
+                      <td>{item.CabinNo}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <p>Select Shift Type...</p>
+                )}
+              </>
+            )}
+          </tbody>
+        </table>
       </div>
-     
     </div>
   );
 };

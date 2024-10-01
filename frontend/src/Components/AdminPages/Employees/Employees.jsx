@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
 import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
-import "../../AdminPages/Employees/Employees.css";
+import "./Employees.css";
 import { message } from "antd";
 
 const Employees = () => {
@@ -175,7 +174,7 @@ const Employees = () => {
         <table>
           <thead>
             <tr>
-              <th>Employee Id</th>
+              <th>Emp Id</th>
               <th>Employee Name</th>
               <th>Shift</th>
               <th>No.of Days Present</th>
