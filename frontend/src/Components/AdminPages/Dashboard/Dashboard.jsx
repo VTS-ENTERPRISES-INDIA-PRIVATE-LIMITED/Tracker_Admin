@@ -4,12 +4,13 @@ import DateTime from "../../../Utils/Datetime";
 import axios from "axios";
 const Dashboard = () => {
   const [shiftType, setShiftType] = useState("");
+  const [selectShift, setSelectType] = useState(true);
   const [breakfastCount, setBreakfastCount] = useState();
   const [lunchCount, setLunchCount] = useState();
   const [dinnerCount, setDinnerCount] = useState();
   const [presntCount, setPresentCount] = useState();
-  const [presentEmpData,setPresentEmpData] = useState([])
-  const handleCountFetch = ()=>{
+  const [presentEmpData, setPresentEmpData] = useState([]);
+  const handleCountFetch = () => {
     const breakfastCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/breakfastcount`;
     const lunchCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/lunchcount`;
     const dinnerCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/dinnercount`;
@@ -22,36 +23,42 @@ const Dashboard = () => {
         setBreakfastCount(0);
         console.log(err);
       });
-      axios
+    axios
       .get(lunchCountUrl)
       .then((res) => {
-        console.log(res.data[0])
-        setLunchCount(res.data[0].LunchCount)})
+        console.log(res.data[0]);
+        setLunchCount(res.data[0].LunchCount);
+      })
 
       .catch((err) => {
         setLunchCount(0);
         console.log(err);
       });
-      axios
+    axios
       .get(dinnerCountUrl)
       .then((res) => setDinnerCount(res.data[0].DinnerCount))
       .catch((err) => {
         setDinnerCount(0);
         console.log(err);
       });
-      axios
+    axios
       .get(presentCountUrl)
       .then((res) => {
-        setPresentEmpData(res.data)
-        setPresentCount(res.data.length)})
+        console.log("empdata", res.data);
+        setPresentEmpData(res.data);
+        setPresentCount(res.data.length);
+      })
       .catch((err) => {
         setPresentCount(0);
         console.log(err);
+      })
+      .finally(() => {
+        setSelectType(false);
       });
-  }
+  };
   useEffect(() => {
-   handleCountFetch()
-  },[shiftType]);
+    handleCountFetch();
+  }, [shiftType]);
   const handleShiftType = (e) => {
     setShiftType(e.target.value);
   };
@@ -138,7 +145,42 @@ const Dashboard = () => {
           </div>
         </div>
       )}
-      
+      <div className="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Shift</th>
+            <th>Cabin</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {selectShift ? (
+            <div>
+              <p>Select Shift Type</p>
+            </div>
+          ) : (
+            <>
+              {presentEmpData.length > 0 ? (
+                presentEmpData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.EmpId}</td>
+                    <td>{item.Name}</td>
+                    <td>{item.Shift}</td>
+                    <td>{item.CabinNo}</td>
+                  </tr>
+                ))
+              ) : (
+                <p>Select Shift Type...</p>
+              )}
+            </>
+          )}
+        </tbody>
+      </table>
+      </div>
+     
     </div>
   );
 };
