@@ -8,6 +8,9 @@ app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/attendance',attendance);
 app.use('/leaves',leaves)
+app.get('/',(req,res)=>{
+    res.send("Server running")
+})
 
 app.listen(5000,()=>{
     console.log("running on port:",5000)
