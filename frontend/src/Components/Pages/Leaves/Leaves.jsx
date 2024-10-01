@@ -81,6 +81,7 @@ const Leaves = () => {
             <label>Subject</label>
             <select value={leaveType} onChange={(e) => setLeaveType(e.target.value)} required>
               <option value="">Select</option>
+              <option value="Work From Home">Work From Home</option>
               <option value="Casual Leave">Casual Leave</option>
               <option value="Sick Leave">Sick Leave</option>
               <option value="Paternity Leave">Paternity Leave</option>

@@ -32,7 +32,7 @@ function App() {
           {activePage === "5" && <AdminLeaves />}
         </div>
       ) : (
-        <Login setIsLoggedIn={setIsLoggedIn} />
+        <Login setActivePage={setActivePage} setIsLoggedIn={setIsLoggedIn} />
       )}
     </div>
   );
