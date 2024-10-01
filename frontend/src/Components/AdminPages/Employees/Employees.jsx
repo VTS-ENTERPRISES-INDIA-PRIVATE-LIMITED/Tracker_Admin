@@ -7,6 +7,7 @@ import { IoMdDownload } from "react-icons/io";
 import * as XLSX from "xlsx";
 import "../../AdminPages/Employees/Employees.css";
 import { message } from "antd";
+import AttendanceReport from "./DonwloadMonthlyReport";
 
 const Employees = () => {
   const [workingDays, setWorkingDays] = useState(25);
@@ -16,7 +17,7 @@ const Employees = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [empData, setEmpData] = useState([]);
   const [shiftFilter, setShiftFilter] = useState(""); // State for shift filter
-
+  const [attendanceData, setAttendanceData] = useState([]);
   const months = moment.months();
   const years = Array.from(
     { length: 30 },
@@ -30,7 +31,7 @@ const Employees = () => {
       item.EmpId.toUpperCase().includes(searchQuery.toUpperCase());
     return matchesShift && matchesSearch;
   });
-
+  
   useEffect(() => {
     const formatDate = (date) => {
       const day = String(date.getDate()).padStart(2, "0");
@@ -70,6 +71,7 @@ const Employees = () => {
       });
   };
   const handleSearch = () => {
+    console.log(month,year)
     if (month && year) {
       const start = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
         .startOf("month")
@@ -84,6 +86,7 @@ const Employees = () => {
     }
   };
 
+ 
   const exportToExcel = () => {
     const dataToExport = searchQuery ? filteredEmpData : empData;
 
@@ -143,6 +146,7 @@ const Employees = () => {
           <button onClick={exportToExcel}>
             <IoMdDownload size={20} /> Download Report
           </button>
+          <AttendanceReport month={month} year={year} attendanceData={attendanceData}/>
         </div>
       </div>
       <label>

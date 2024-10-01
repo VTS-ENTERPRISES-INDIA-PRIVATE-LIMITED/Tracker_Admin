@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [dinnerCount, setDinnerCount] = useState();
   const [presntCount, setPresentCount] = useState();
   const [presentEmpData, setPresentEmpData] = useState([]);
+
   const handleCountFetch = () => {
     const breakfastCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/breakfastcount`;
     const lunchCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/lunchcount`;

@@ -97,6 +97,7 @@ const handleLogin = (e) => {
         if(res.data.access === "admin")
         {
           setActivePage('4')
+          localStorage.setItem('activeTab','4')
         }
         else{
           setActivePage("1")

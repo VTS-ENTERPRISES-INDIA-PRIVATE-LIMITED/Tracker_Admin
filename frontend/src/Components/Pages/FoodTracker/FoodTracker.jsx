@@ -69,7 +69,7 @@ const FoodTracker = () => {
     } else if (selectShift === "Second") {
       if (
         (currentHour < 14 || (currentHour === 14 && currentMinutes < 45)) || 
-        (currentHour > 15 || (currentHour === 15 && currentMinutes > 30))
+        (currentHour > 16 || (currentHour === 16 && currentMinutes > 40))
       ) {
         message.error("Responses for second shift are only allowed between 2:45 PM and 3:30 PM.");
         return;
