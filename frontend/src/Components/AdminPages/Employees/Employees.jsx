@@ -22,14 +22,13 @@ const Employees = () => {
     (_, i) => new Date().getFullYear() - i
   );
 
-  const filteredEmpData = empData
-    .filter((item) => {
-      const matchesShift = shiftFilter ? item.Shift === shiftFilter : true;
-      const matchesSearch =
-        item.Name.toUpperCase().includes(searchQuery.toUpperCase()) ||
-        item.EmpId.toUpperCase().includes(searchQuery.toUpperCase());
-      return matchesShift && matchesSearch;
-    });
+  const filteredEmpData = empData.filter((item) => {
+    const matchesShift = shiftFilter ? item.Shift === shiftFilter : true;
+    const matchesSearch =
+      item.Name.toUpperCase().includes(searchQuery.toUpperCase()) ||
+      item.EmpId.toUpperCase().includes(searchQuery.toUpperCase());
+    return matchesShift && matchesSearch;
+  });
 
   useEffect(() => {
     const formatDate = (date) => {
@@ -69,7 +68,6 @@ const Employees = () => {
         setIsLoading(false);
       });
   };
-
   const handleSearch = () => {
     if (month && year) {
       const start = moment(`${year}-${month}-01`, "YYYY-MMMM-DD")
@@ -173,68 +171,44 @@ const Employees = () => {
       <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
         Search
       </button>
+      <div className="Emptable">
+        <table>
+          <thead>
+            <tr>
+              <th>Employee Id</th>
+              <th>Employee Name</th>
+              <th>Shift</th>
+              <th>No.of Days Present</th>
+              <th>No.of Leaves taken</th>
+            </tr>
+          </thead>
 
-      <label htmlFor="shiftFilter" style={{ marginLeft: "20px" }}>
-        Filter by Shift:
-        <select
-          value={shiftFilter}
-          onChange={(e) => setShiftFilter(e.target.value)}
-        >
-          <option value="">All</option>
-          <option value="Full Time">Full Time</option>
-          <option value="First">First</option>
-          <option value="Second">Second</option>
-        </select>
-      </label>
+          <tbody>
+            {isLoading ? (
+              <div>
+                <p>loading....</p>
+              </div>
+            ) : (
+              <>
+                {filteredEmpData.length > 0 ? (
+                  filteredEmpData.map((item) => (
+                    <tr key={item.EmpId}>
+                      <td>{item.EmpId}</td>
+                      <td>{item.Name}</td>
+                      <td>{item.Shift}</td>
+                      <td>{item.PresentCount}</td>
 
-      <label htmlFor="">
-        Working Days Count
-        <input
-          type="number"
-          onChange={(e) => setWorkingDays(e.target.value)}
-          placeholder="25 by default"
-        />
-      </label>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Employee Id</th>
-            <th>Employee Name</th>
-            <th>Shift</th>
-            <th>No.of Days Present</th>
-            <th>No.of Leaves taken</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {isLoading ? (
-            <div>
-              <p>loading....</p>
-            </div>
-          ) : (
-            <>
-              {filteredEmpData.length > 0 ? (
-                filteredEmpData.map((item) => (
-                  <tr key={item.EmpId}>
-                    <td>{item.EmpId}</td>
-                    <td>{item.Name}</td>
-                    <td>{item.Shift}</td>
-                    <td>{item.PresentCount}</td>
-                    <td>
-                      {workingDays
-                        ? workingDays - item.PresentCount
-                        : 25 - item.PresentCount}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <p>No Data...</p>
-              )}
-            </>
-          )}
-        </tbody>
-      </table>
+                      {/* <td>{item.}</td> */}
+                    </tr>
+                  ))
+                ) : (
+                  <p>No Data...</p>
+                )}
+              </>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

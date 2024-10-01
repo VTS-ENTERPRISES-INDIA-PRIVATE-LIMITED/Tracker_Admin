@@ -20,12 +20,11 @@
 }
 
 .leavetable-cont thead {
-  background-color: white;
+  background-color: rgb(218, 213, 213);
 }
 
 .leavetable-cont th,
 .leavetable-cont td {
-  
   padding: 15px 18px;
   text-align: left;
   font-size: 0.9rem;
