@@ -109,27 +109,53 @@ router.get('/getAttendanceByDate/:date', async (req, res) => {
     }
 });
 
-router.get('/dinnercount', async (req, res) => {
+router.get('/firstshift/breakfastcount', async (req, res) => {
     try {
-        const [rows] = await connection.query(getQueries.getDinnercount);
+        const [rows] = await connection.query(getQueries.getBNbreakfastcount);
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-router.get('/breakfastcount', async (req, res) => {
+router.get('/firstshift/lunchcount', async (req, res) => {
     try {
-        const [rows] = await connection.query(getQueries.getbreakfastcount);
+        const [rows] = await connection.query(getQueries.getBNLunchcount);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+router.get('/secondshift/dinnercount', async (req, res) => {
+    try {
+        const [rows] = await connection.query(getQueries.getANDinnercount);
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-router.get('/lunchcount', async (req, res) => {
+router.get('/fulltime/breakfastcount', async (req, res) => {
     try {
-        const [rows] = await connection.query(getQueries.getLunchcount);
+        const [rows] = await connection.query(getQueries.getFTbreakfastcount);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.get('/fulltime/lunchcount', async (req, res) => {
+    try {
+        const [rows] = await connection.query(getQueries.getFTLunchcount);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.get('/fulltime/dinnercount', async (req, res) => {
+    try {
+        const [rows] = await connection.query(getQueries.getFTDinnercount);
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
