@@ -109,32 +109,34 @@ router.get('/getAttendanceByDate/:date', async (req, res) => {
     }
 });
 
-router.get('/dinnercount', async (req, res) => {
+router.get('/firstshift/foodcount', async (req, res) => {
     try {
-        const [rows] = await connection.query(getQueries.getDinnercount);
+        const [rows] = await connection.query(getQueries.getfirstfoodcount);
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-router.get('/breakfastcount', async (req, res) => {
+router.get('/secondshift/foodcount', async (req, res) => {
     try {
-        const [rows] = await connection.query(getQueries.getbreakfastcount);
+        const [rows] = await connection.query(getQueries.getsecondfoodcount);
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-router.get('/lunchcount', async (req, res) => {
+router.get('/fulltime/foodcount', async (req, res) => {
     try {
-        const [rows] = await connection.query(getQueries.getLunchcount);
+        const [rows] = await connection.query(getQueries.getfulltimefoodcount);
         res.json(rows);
     } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+        res.status(500).json({ error: err.message });
+    }
 });
+
+
 
 router.get('/getAllEmployees/:month/:year', async (req, res) => {
     try {
