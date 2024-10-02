@@ -127,7 +127,7 @@ const AttendanceReport = ({ month, year }) => {
   return (
     <div>
       <button className="adminportal-btn" onClick={generateExcel}>
-        <IoMdDownload size={15} />
+        <IoMdDownload size={20} />
         Download Attendance Report
       </button>
     </div>

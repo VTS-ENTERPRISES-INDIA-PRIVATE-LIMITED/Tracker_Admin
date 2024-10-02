@@ -136,41 +136,44 @@ const Employees = () => {
     <div className="Emptable-cont">
       <div className="table-optns0">
         <div className="table-optns1">
-          <div>
-            <label>
-              Select Month:
-              <select value={month} onChange={(e) => setMonth(e.target.value)}>
-                <option value="">Select Month</option>
-                {months.map((m, index) => (
-                  <option key={index} value={m}>
-                    {m}
-                  </option>
-                ))}
-              </select>
-            </label>
+          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+            Select Month :
+            <select value={month} onChange={(e) => setMonth(e.target.value)}>
+              <option value="">Select Month</option>
+              {months.map((m, index) => (
+                <option key={index} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "0.5rem",
+              alignItems: "center",
+              marginLeft: "20px",
+            }}
+          >
+            Select Year :
+            <select value={year} onChange={(e) => setYear(e.target.value)}>
+              <option value="">Select Year</option>
+              {years.map((y, index) => (
+                <option key={index} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
-            <label style={{ marginLeft: "20px" }}>
-              Select Year:
-              <select value={year} onChange={(e) => setYear(e.target.value)}>
-                <option value="">Select Year</option>
-                {years.map((y, index) => (
-                  <option key={index} value={y}>
-                    {y}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div>
-            <button style={{ marginLeft: "20px" }} onClick={handleSearch}>
+            <button style={{ marginLeft: "20px" ,fontSize:"13px"}} onClick={handleSearch}>
               Search
             </button>
           </div>
         </div>
-        <div style={{display:"flex"}}>
-          <button className="downloadBtn adminportal-btn" onClick={exportToExcel}>
-            <IoMdDownload size={15} /> Download Report
+        <div style={{ display: "flex" }}>
+          <button className="adminportal-btn" onClick={exportToExcel}>
+            <IoMdDownload size={20} /> Download Report
           </button>
           <AttendanceReport month={month} year={year} />
         </div>
@@ -181,29 +184,27 @@ const Employees = () => {
           <input
             className="searchfilter"
             type="text"
-            placeholder="Search by Emp ID"
+            placeholder="Search by Emp ID or Emp Name"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <label htmlFor="">Select Shift : 
-        <select onChange={e=>setShiftFilter(e.target.value)}>
-              
-              <option value={"--select--"}>Select</option>
-              <option value={"Full Time"}>Full Time</option>
-              <option value={"First"}>First</option>
-              <option value={"Second"}>Second</option>
-            </select>
-        </label>
-        
-        <div>
-          <label htmlFor="input">
-            Working Days{" "}
-            <input
-              placeholder="25 By Default"
-              onChange={(e) => setWorkingDays(e.target.value)}
-            />
-          </label>
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          Select Shift :
+          <select onChange={(e) => setShiftFilter(e.target.value)}>
+            <option value={"--select--"}>Select</option>
+            <option value={"Full Time"}>Full Time</option>
+            <option value={"First"}>First</option>
+            <option value={"Second"}>Second</option>
+          </select>
+        </div>
+
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          Working Days :
+          <input
+            placeholder="25 By Default"
+            onChange={(e) => setWorkingDays(e.target.value)}
+          />
         </div>
       </div>
 
@@ -221,9 +222,11 @@ const Employees = () => {
 
           <tbody>
             {isLoading ? (
-              <div>
-                <p>loading....</p>
-              </div>
+              <tr>
+                <td style={{ textAlign: "center" }} colSpan={5}>
+                  loading...
+                </td>
+              </tr>
             ) : (
               <>
                 {filteredEmpData.length > 0 ? (

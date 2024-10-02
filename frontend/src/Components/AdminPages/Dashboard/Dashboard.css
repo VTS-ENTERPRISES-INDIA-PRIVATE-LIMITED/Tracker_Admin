@@ -72,7 +72,7 @@
 
 .AdminDash-cont .Dashtable {
   margin-top: 2rem;
-  height: 600px;
+  height: 350px;
   overflow-y: scroll;
 }
 
@@ -110,10 +110,6 @@
   transition: background-color 0.3s ease;
 }
 
-.AdminDash-cont tbody tr:hover {
-  background-color: #d4d0d0;
-}
-
 .AdminDash-cont td {
   text-align: left;
 }
@@ -123,4 +119,23 @@
   justify-content: space-around;
   align-items: center;
   margin: 10px 0 10px 0;
+}
+.AdminDash-cont .table-optns1 {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+.AdminDash-cont .table-optns2 .downloadBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 5px;
+  border-radius: 7px;
+  border: 0.3px solid gray;
+  background: white;
+  cursor: pointer;
+}
+.AdminDash-cont .table-optns2 .downloadBtn:hover {
+  border: 1px solid #5895ef;
 }

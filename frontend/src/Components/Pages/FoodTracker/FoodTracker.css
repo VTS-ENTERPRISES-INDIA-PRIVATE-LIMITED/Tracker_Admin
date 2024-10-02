@@ -37,7 +37,6 @@
   gap: 2rem;
   justify-content: space-around;
   align-items: center;
-  align-content: center;
 }
 .Emp-cont .checkbox-cont .checkbox {
   display: flex;
@@ -45,9 +44,14 @@
   justify-content: center;
   gap: 0.4rem;
 }
-.Emp-cont .checkbox-cont label {
+
+.Emp-cont .checkbox-cont .checkbox label {
   font-weight: 200;
   font-size: 15px;
+}
+.Emp-cont .checkbox-cont .checkbox input {
+  display: flex;
+  align-items: center;
 }
 .Emp-cont label {
   font-weight: bold;

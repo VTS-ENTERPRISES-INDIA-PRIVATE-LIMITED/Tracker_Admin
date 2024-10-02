@@ -4,44 +4,62 @@ import DateTime from "../../../Utils/Datetime";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { IoMdDownload } from "react-icons/io";
+import { Empty } from "antd";
 
 const Dashboard = () => {
   const [shiftType, setShiftType] = useState("");
-  const [breakfastCount, setBreakfastCount] = useState();
-  const [lunchCount, setLunchCount] = useState();
-  const [dinnerCount, setDinnerCount] = useState();
+  const [fullTimeCount, setFulltimeCount] = useState();
+  const [firstShiftCount, setFirstShiftCount] = useState();
+  const [secondShiftCount, setSecondShiftCount] = useState();
   const [presntCount, setPresentCount] = useState();
   const [presentEmpData, setPresentEmpData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleCountFetch = () => {
-    const breakfastCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/breakfastcount`;
-    const lunchCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/lunchcount`;
-    const dinnerCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/dinnercount`;
+    setIsLoading(true);
+    const fullTimeShiftURl = `${process.env.REACT_APP_BACKEND_URL}/attendance/fulltime/foodcount`;
+    const firstShiftUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/firstshift/foodcount`;
+    const seconsShiftUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/secondshift/foodcount`;
     const presentCountUrl = `${process.env.REACT_APP_BACKEND_URL}/attendance/shiftWiseEmployees/${shiftType}`;
 
     axios
-      .get(breakfastCountUrl)
-      .then((res) => setBreakfastCount(res.data[0].BreakfastCount))
+      .get(fullTimeShiftURl)
+      .then((res) => setFulltimeCount(res.data))
       .catch((err) => {
-        setBreakfastCount(0);
+        setFulltimeCount([
+          {
+            BreakfastCount: "0",
+            LunchCount: "0",
+            DinnerCount: "0",
+          },
+        ]);
         console.log(err);
       });
     axios
-      .get(lunchCountUrl)
+      .get(firstShiftUrl)
       .then((res) => {
         console.log(res.data[0]);
-        setLunchCount(res.data[0].LunchCount);
+        setFirstShiftCount(res.data);
       })
 
       .catch((err) => {
-        setLunchCount(0);
+        setFirstShiftCount([
+          {
+            BreakfastCount: "0",
+            LunchCount: "0",
+          },
+        ]);
         console.log(err);
       });
     axios
-      .get(dinnerCountUrl)
-      .then((res) => setDinnerCount(res.data[0].DinnerCount))
+      .get(seconsShiftUrl)
+      .then((res) => setSecondShiftCount(res.data))
       .catch((err) => {
-        setDinnerCount(0);
+        setSecondShiftCount([
+          {
+            DinnerCount: "0",
+          },
+        ]);
         console.log(err);
       });
     axios
@@ -50,10 +68,12 @@ const Dashboard = () => {
         console.log("empdata", res.data);
         setPresentEmpData(res.data);
         setPresentCount(res.data.length);
+        setIsLoading(false);
       })
       .catch((err) => {
         setPresentCount(0);
         console.log(err);
+        setIsLoading(false);
       });
   };
   const exportToExcel = () => {
@@ -102,8 +122,8 @@ const Dashboard = () => {
     <div className="AdminDash-cont">
       <div className="wish-container">
         <DateTime className="time-date" />
-        <h2 className="wish-message">
-          Welcome{" "}
+        <h2 className="wish-message" style={{ display: "flex", gap: "0.5rem" }}>
+          Welcome
           <span style={{ color: "blue" }} s>
             {localStorage.getItem("empname").toUpperCase()}
           </span>
@@ -112,7 +132,7 @@ const Dashboard = () => {
       </div>
       <div className="table-optns">
         <div className="table-optns1">
-          Select Shift :
+          Select Shift : 
           <select value={shiftType} onChange={handleShiftType}>
             <label>select Shift Type</label>
             <option value="">Select</option>
@@ -131,7 +151,7 @@ const Dashboard = () => {
           </select>
         </div>
         <div className="table-optns2">
-          <button onClick={exportToExcel} className="downloadBtn">
+          <button onClick={exportToExcel} className="adminportal-btn">
             <IoMdDownload size={20} /> Download Report
           </button>
         </div>
@@ -145,15 +165,15 @@ const Dashboard = () => {
           </div>
           <div className="cont">
             <label>Breakfast Count</label>
-            <p> {breakfastCount}</p>
+            <p> {fullTimeCount[0].BreakfastCount}</p>
           </div>
           <div className="cont">
             <label>Lunch Count</label>
-            <p> {lunchCount}</p>
+            <p> {fullTimeCount[0].LunchCount}</p>
           </div>
           <div className="cont">
             <label>Dinner Count</label>
-            <p> {dinnerCount}</p>
+            <p> {fullTimeCount[0].DinnerCount}</p>
           </div>
         </div>
       )}
@@ -165,11 +185,11 @@ const Dashboard = () => {
           </div>
           <div className="cont">
             <label>Breakfast Count</label>
-            <p> {breakfastCount}</p>
+            <p> {firstShiftCount[0].BreakfastCount}</p>
           </div>
           <div className="cont">
             <label>Lunch Count</label>
-            <p> {lunchCount}</p>
+            <p> {firstShiftCount[0].LunchCount}</p>
           </div>
         </div>
       )}
@@ -182,7 +202,7 @@ const Dashboard = () => {
 
           <div className="cont">
             <label>Dinner Count</label>
-            <p> {dinnerCount}</p>
+            <p> {secondShiftCount[0].DinnerCount}</p>
           </div>
         </div>
       )}
@@ -199,19 +219,39 @@ const Dashboard = () => {
 
           <tbody>
             <>
-              {presentEmpData.length > 0 ? (
-                presentEmpData.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.EmpId}</td>
-                    <td>{item.Name}</td>
-                    <td>{item.Shift}</td>
-                    <td>{item.CabinNo}</td>
-                  </tr>
-                ))
+              {shiftType ? (
+                <>
+                  {isLoading ? (
+                    <tr>
+                      <td style={{ textAlign: "center" }} colSpan={4}>
+                        loading...
+                      </td>
+                    </tr>
+                  ) : (
+                    <>
+                      {presentEmpData.length > 0 ? (
+                        presentEmpData.map((item, index) => (
+                          <tr key={index}>
+                            <td>{item.EmpId}</td>
+                            <td>{item.Name}</td>
+                            <td>{item.Shift}</td>
+                            <td>{item.CabinNo}</td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan={5}>
+                            <Empty className="no-data-msg" />
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  )}
+                </>
               ) : (
                 <tr>
                   <td style={{ textAlign: "center" }} colSpan={4}>
-                    Select Shift Type...
+                    Select Shift Type
                   </td>
                 </tr>
               )}
