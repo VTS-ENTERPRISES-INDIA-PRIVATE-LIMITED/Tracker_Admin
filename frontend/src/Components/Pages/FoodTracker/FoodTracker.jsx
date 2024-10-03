@@ -62,7 +62,7 @@ const FoodTracker = () => {
     const currentMinutes = currentTime.getMinutes();
 
     if (selectShift === "Full Time" || selectShift === "First") {
-      if (currentHour > 9 || (currentHour === 9 && currentMinutes >= 45)) {
+      if (currentHour > 9 || (currentHour === 9 && currentMinutes >= 30)) {
         message.error(
           "Login time has already passed for full time or first shift."
         );
@@ -72,8 +72,8 @@ const FoodTracker = () => {
       if (
         currentHour < 14 ||
         (currentHour === 14 && currentMinutes < 45) ||
-        currentHour > 16 ||
-        (currentHour === 16 && currentMinutes > 40)
+        currentHour > 15||
+        (currentHour === 15 && currentMinutes > 30)
       ) {
         message.error(
           "Responses for second shift are only allowed between 2:45 PM and 3:30 PM."
